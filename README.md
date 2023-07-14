@@ -10,11 +10,11 @@ Client libraries to access the REST API of openHAB.
 | channel-types  | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | config-descriptions | :x:    | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | discovery      | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| events         | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
+| events         | :x:          | :x:            | :x: | :heavy_check_mark:| :heavy_check_mark:  | :heavy_check_mark:        | :x:    | :x:    | :heavy_check_mark:    |
 | habpanel       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | iconsets       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | inbox          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| items          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
+| items          | :heavy_check_mark:          | :x:            | :x: | :heavy_check_mark:| :heavy_check_mark:  | :heavy_check_mark:        | :x:    | :x:    | :heavy_check_mark:    |
 | links          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | logging        | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
 | module-types   | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
