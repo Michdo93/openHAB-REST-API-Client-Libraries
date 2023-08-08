@@ -494,124 +494,33 @@ Client libraries to access the REST API of openHAB.
 
 ### services
 
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /services/{serviceId}/config               |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Get service configuration for given service ID." |                            |
-| operationId                       | "getServiceConfig"                          |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "path"                     |
-|                                   |       description: "service ID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       500: "Configuration can not be read due to internal error" |                          |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-|                                   |                                             |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Updates a service configuration for given service ID and returns the old configuration." | |
-| operationId                       | "updateServiceConfig"                      |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "serviceId"                          | in: "path"                     |
-|                                   |       description: "service ID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "requestBody"                        | in: "body"                     |
-|                                   |       content: application/json            | schema: type: "object"         |
-|                                   |                additionalProperties: {...} |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       204: "No old configuration" |                                             |                                |
-|       500: "Configuration can not be updated due to internal error" |                     |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-|                                   |                                             |                                |
-| HTTP Method                       | DELETE                                      |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Deletes a service configuration for given service ID and returns the old configuration." | |
-| operationId                       | "deleteServiceConfig"                      |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "path"                     |
-|                                   |       description: "service ID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       204: "No old configuration" |                                             |                                |
-|       500: "Configuration can not be deleted due to internal error" |                     |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /services                                   |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Get all configurable services."           |                                |
-| operationId                       | "getServices"                               |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /services/{serviceId}                      |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Get configurable service for given service ID." |                            |
-| operationId                       | "getServicesById"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "serviceId"                          | in: "path"                     |
-|                                   |       description: "service ID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       404: "Not found"            |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /services/{serviceId}/contexts             |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "services"                                  |                                |
-| Summary                           | "Get existing multiple context service configurations for the given factory PID." | |
-| operationId                       | "getServiceContext"                         |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "serviceId"                          | in: "path"                     |
-|                                   |       description: "service ID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
+| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
+|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
+| /services/{serviceId}/config          | GET         | "services"    | "Get service configuration for given service ID."       | "getServiceConfig"                     | name: "serviceId"                           |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "path"                                  |                                | 500: "Configuration can not be read due to internal error" |                       |
+|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
+| /services/{serviceId}/config                           | PUT         | "services"    | "Updates a service configuration for given service ID and returns the old configuration." | "updateServiceConfig"                 | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "header"                                |                                | 204: "No old configuration"        |                       |
+|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  | 500: "Configuration can not be updated due to internal error" |                       |
+|                                       |             |               |                                                         |                                        | description: "service ID"                   |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | name: "requestBody"                         | in: "body"                                  |                                      |                       |
+|                                       |             |               |                                                         |                                        | content: application/json                   | schema: type: "object"          |                                      |                       |
+|                                       |             |               |                                                         |                                        |                additionalProperties: {...}  |                                |                                      |                       |
+| /services/{serviceId}/config                           | DELETE      | "services"    | "Deletes a service configuration for given service ID and returns the old configuration." | "deleteServiceConfig"                 | name: "serviceId"                           |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "path"                                  |                                | 204: "No old configuration"        |                       |
+|                                       |             |               |                                                         |                                        | description: "service ID"                   |                                | 500: "Configuration can not be deleted due to internal error" |                       |
+|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
+| /services                            | GET         | "services"    | "Get all configurable services."                       | "getServices"                          | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
+| /services/{serviceId}                | GET         | "services"    | "Get configurable service for given service ID."       | "getServicesById"                     | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "header"                                |                                | 404: "Not found"                   |                       |
+|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  |                                      |                       |
+| /services/{serviceId}/contexts       | GET         | "services"    | "Get existing multiple context service configurations for the given factory PID." | "getServiceContext"                | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  |                                      |                       |
 
 ### sitemaps
 
