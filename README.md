@@ -379,133 +379,77 @@ Client libraries to access the REST API of openHAB.
 
 ### persistence
 
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /persistence/items/{itemname}              |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "persistence"                               |                                |
-| Summary                           | "Gets item persistence data from the persistence service." |                  |
-| operationId                       | "getItemDataFromPersistenceService"        |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "query"                    |
-|                                   |       description: "Id of the persistence service. If not provided the default service will be used" | required: false |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                           | in: "path"                     |
-|                                   |       description: "The item name"         | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "starttime"                          | in: "query"                    |
-|                                   |       description: "Start time of the data to return. Will default to 1 day before endtime. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "endtime"                            | in: "query"                    |
-|                                   |       description: "End time of the data to return. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "page"                               | in: "query"                    |
-|                                   |       description: "Page number of data to return. This parameter will enable paging." | required: false |
-|                                   |       schema: type: "integer"              | format: "int32"                |
-|                                   |                                             |                                |
-|                                   | name: "pagelength"                         | in: "query"                    |
-|                                   |       description: "The length of each page." | required: false               |
-|                                   |       schema: type: "integer"              | format: "int32"                |
-|                                   |                                             |                                |
-|                                   | name: "boundary"                           | in: "query"                    |
-|                                   |       description: "Gets one value before and after the requested period." | required: false |
-|                                   |       schema: type: "boolean"              |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       404: "Unknown Item or persistence service" |                                       |                                |
-| Endpoint                          | /persistence/items/{itemname}              |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "persistence"                               |                                |
-| Summary                           | "Stores item persistence data into the persistence service." |                  |
-| operationId                       | "storeItemDataInPersistenceService"        |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "query"                    |
-|                                   |       description: "Id of the persistence service. If not provided the default service will be used" | required: false |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                           | in: "path"                     |
-|                                   |       description: "The item name."        | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "time"                               | in: "query"                    |
-|                                   |       description: "Time of the data to be stored. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "state"                              | in: "query"                    |
-|                                   |       description: "The state to store."   | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|       404: "Unknown Item or persistence service" |                                       |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-| Endpoint                          | /persistence/items/{itemname}              |                                |
-| HTTP Method                       | DELETE                                      |                                |
-| Tags                              | "persistence"                               |                                |
-| Summary                           | "Deletes item persistence data from a specific persistence service in a given time range." |             |
-| operationId                       | "deleteItemFromPersistenceService"         |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "query"                    |
-|                                   |       description: "Id of the persistence service." | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                           | in: "path"                     |
-|                                   |       description: "The item name."        | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "starttime"                          | in: "query"                    |
-|                                   |       description: "Start of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "endtime"                            | in: "query"                    |
-|                                   |       description: "End of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       400: "Invalid filter parameters" |                                       |                                |
-|       404: "Unknown persistence service" |                                       |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /persistence/items                          |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "persistence"                               |                                |
-| Summary                           | "Gets a list of items available via a specific persistence service." |           |
-| operationId                       | "getItemsForPersistenceService"            |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "serviceId"                          | in: "query"                    |
-|                                   |       description: "Id of the persistence service. If not provided the default service will be used" | required: false |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /persistence                                |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "persistence"                               |                                |
-| Summary                           | "Gets a list of persistence services."      |                                |
-| operationId                       | "getPersistenceServices"                   |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
+| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
+|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
+| /persistence/items/{itemname}         | GET         | "persistence" | "Gets item persistence data from the persistence service." | "getItemDataFromPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            |                       |
+|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Id of the persistence service. If not provided the default service will be used" | required: false                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "The item name"                  | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "starttime"                             | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Start time of the data to return. Will default to 1 day before endtime. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "endtime"                               | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "End time of the data to return. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "page"                                  | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Page number of data to return. This parameter will enable paging." | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "integer"                       | format: "int32"                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "pagelength"                            | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "The length of each page."       | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "integer"                       | format: "int32"                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "boundary"                              | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Gets one value before and after the requested period." | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "boolean"                       |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
+|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
+| /persistence/items/{itemname}         | PUT         | "persistence" | "Stores item persistence data into the persistence service." | "storeItemDataInPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Id of the persistence service. If not provided the default service will be used" | required: false                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "The item name."                 | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "time"                                  | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Time of the data to be stored. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "state"                                 | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "The state to store."            | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
+| /persistence/items/{itemname}         | DELETE      | "persistence" | "Deletes item persistence data from a specific persistence service in a given time range." | "deleteItemFromPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Id of the persistence service." | required: true                 |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "The item name."                 | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "starttime"                             | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "Start of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | name: "endtime"                               | in: "query"                    |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "End of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
+|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 400: "Invalid filter parameters"     |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 404: "Unknown persistence service" |                       |
+| /persistence                         | GET         | "persistence" | "Gets a list of persistence services."                | "getPersistenceServices"              | name: "Accept-Language"                      |                                | 200: "OK"                            |                       |
+|                                     |             |               |                                                         |                                        | in: "header"                                  |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        | description: "language"                      | required: false               |                                    |                       |
+|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
+|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
+|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
 
 ### profile-types
 
