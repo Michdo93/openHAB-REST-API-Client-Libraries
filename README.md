@@ -146,345 +146,142 @@ Client libraries to access the REST API of openHAB.
 
 ### items
 
-| Element                           | Details                                   | Further                        |
-|-----------------------------------|-------------------------------------------|------------------------------------|
-| Endpoint                          | /items/{itemName}/members/{memberItemName}|                                    |
-| HTTP Method                       | PUT                                       |                                    |
-| Tags                              | "items"                                   |                                    |
-| Summary                           | "Adds a new member to a group item."      |                                    |
-| operationId                       | "addMemberToGroupItem"                    |                                    |
-| Parameters                        |                                           |                                    |
-|                                   | name: "itemName"                       |                                    |
-|                                   |                                | in: "path"                                    |
-|                                   |                  | description: "item name"                                    |
-|                                   |                            | required: true                                    |
-|                                   |                     | schema: type: "string"                                   |
-|                                   |                                           |                                    |
-|                                   | name: "memberItemName"                |                                    |
-|                                   |                                 | in: "path"                                   |
-|                                   |           | description: "member item name"                                    |
-|                                   |                             | required: true                                   |
-|                                   |                     | schema: type: "string"                                   |
-| Responses                         |                                           |                                    |
-|                                   | 200: "OK"                                |                                    |
-|                                   | 404: "Item or member item not found or item is not of type group item." |         |
-|                                   | 405: "Member item is not editable."       |                                    |
-| Security                          |                                           |                                    |
-|                                   | oauth2:                               |                                    |
-|                                   |                                | "admin"                                   |
-
-| Element                           | Details                                   | Further                             |
-|-----------------------------------|-------------------------------------------|-------------------------------------|
-| Endpoint                          | /items/{itemname}/metadata/{namespace}   |                                     |
-| HTTP Method                       | PUT                                       |                                     |
-| Tags                              | "items"                                   |                                     |
-| Summary                           | "Adds metadata to an item."               |                                     |
-| operationId                       | "addMetadataToItem"                       |                                     |
-| Parameters                        |                                           |                                     |
-|                                   | name: "itemname"                          |                                     |
-|                                   |      in: "path"                           |                                     |
-|                                   |      description: "item name"            |                                     |
-|                                   |      required: true                       |                                     |
-|                                   |      schema: type: "string"              |                                     |
-|                                   |                                           |                                     |
-|                                   | name: "namespace"                         |                                     |
-|                                   |      in: "path"                           |                                     |
-|                                   |      description: "namespace"            |                                     |
-|                                   |      required: true                       |                                     |
-|                                   |      schema: type: "string"              |                                     |
-| Request Body                      |                                           |                                     |
-|      description: "metadata"       |                                           |                                     |
-|      content: application/json     |                                           |                                     |
-|      schema: $ref: "#/components/schemas/MetadataDTO" |                             |                                     |
-|      required: true               |                                           |                                     |
-| Responses                         |                                           |                                     |
-|      200: "OK"                    |                                           |                                     |
-|      201: "Created"               |                                           |                                     |
-|      400: "Metadata value empty." |                                           |                                     |
-|      404: "Item not found."       |                                           |                                     |
-|      405: "Metadata not editable."|                                           |                                     |
-| Security                          |                                           |                                     |
-|      oauth2:                      |                                           |                                     |
-|          0: "admin"               |                                           |                                     |
-
-| Element                           | Details                                       | Further                              |
-|-----------------------------------|-----------------------------------------------|--------------------------------------|
-| Endpoint                          | /items/{itemname}/tags/{tag}                 |                                      |
-| HTTP Method                       | PUT                                           |                                      |
-| Tags                              | "items"                                       |                                      |
-| Summary                           | "Adds a tag to an item."                     |                                      |
-| operationId                       | "addTagToItem"                                |                                      |
-| Parameters                        |                                               |                                      |
-|                                   | name: "itemname"                              |                                      |
-|                                   |      in: "path"                               |                                      |
-|                                   |      description: "item name"                |                                      |
-|                                   |      required: true                           |                                      |
-|                                   |      schema: type: "string"                  |                                      |
-|                                   |                                               |                                      |
-|                                   | name: "tag"                                   |                                      |
-|                                   |      in: "path"                               |                                      |
-|                                   |      description: "tag"                       |                                      |
-|                                   |      required: true                           |                                      |
-|                                   |      schema: type: "string"                  |                                      |
-| Responses                         |                                               |                                      |
-|                                   | 200: "OK"                                    |                                      |
-|                                   | 404: "Item not found."                       |                                      |
-|                                   | 405: "Item not editable."                    |                                      |
-| Security                          |                                               |                                      |
-|                                   | oauth2:                                       |                                      |
-|          0: "admin"               |                                               |                                      |
-|                                   |                                               |                                      |
-| Endpoint                          | /items/{itemname}/tags/{tag}                 |                                      |
-| HTTP Method                       | DELETE                                        |                                      |
-| Tags                              | "items"                                       |                                      |
-| Summary                           | "Removes a tag from an item."                |                                      |
-| operationId                       | "removeTagFromItem"                           |                                      |
-| Parameters                        |                                               |                                      |
-|                                   | name: "itemname"                              |                                      |
-|                                   |      in: "path"                               |                                      |
-|                                   |      description: "item name"                |                                      |
-|                                   |      required: true                           |                                      |
-|                                   |      schema: type: "string"                  |                                      |
-|                                   |                                               |                                      |
-|                                   | name: "tag"                                   |                                      |
-|                                   |      in: "path"                               |                                      |
-|                                   |      description: "tag"                       |                                      |
-|                                   |      required: true                           |                                      |
-|                                   |      schema: type: "string"                  |                                      |
-| Responses                         |                                               |                                      |
-|                                   | 200: "OK"                                    |                                      |
-|                                   | 404: "Item not found."                       |                                      |
-|                                   | 405: "Item not editable."                    |                                      |
-| Security                          |                                               |                                      |
-|                                   | oauth2:                                       |                                      |
-|          0: "admin"               |                                               |                                      |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /items/{itemname}                           |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Gets a single item."                       |                                |
-| operationId                       | "getItemByName"                             |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "metadata"                            | in: "query"                    |
-|                                   |       description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "recursive"                           | in: "query"                    |
-|                                   |       description: "get member items if the item is a group item" |             |
-|                                   |       schema: type: "boolean"              | default: true                  |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|                                   | 200: "OK"                                  | content: application/json       |
-|                                   |       schema: {...}                        |                                |
-|                                   |                                             |                                |
-|                                   | 404: "Item not found"                      |                                |
-|                                   |                                             |                                |
-| Endpoint                          | /items/{itemname}                           |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Adds a new item to the registry or updates the existing item." |               |
-| operationId                       | "addOrUpdateItemInRegistry"                 |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Request Body                      |                                             |                                |
-|       description: "item data"     |                                             |                                |
-|       content: application/json   |                                             |                                |
-|       schema: $ref: "#/components/schemas/GroupItemDTO" |                       | required: true                 |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: */*                               | schema: {...}                  |
-|                                   |                                             |                                |
-|       201: "Item created."        |                                             |                                |
-|                                   |                                             |                                |
-|       400: "Payload invalid."     |                                             |                                |
-|                                   |                                             |                                |
-|       404: "Item not found or name in path invalid." |                     |                                |
-|                                   |                                             |                                |
-|       405: "Item not editable."   |                                             |                                |
-| Security                          |                                             |                                |
-|                                   | oauth2:                                     |                                |
-|          0: "admin"               |                                             |                                |
-|                                   |                                             |                                |
-| Endpoint                          | /items/{itemname}                           |                                |
-| HTTP Method                       | POST                                        |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Sends a command to an item."               |                                |
-| operationId                       | "sendItemCommand"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Request Body                      |                                             |                                |
-|       description: "valid item command (e.g. ON, OFF, UP, DOWN, REFRESH)" |          |                                |
-|       content: text/plain         |                                             |                                |
-|       schema: type: "string"      |                                             | required: true                 |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|                                   |                                             |                                |
-|       400: "Item command null"    |                                             |                                |
-|                                   |                                             |                                |
-|       404: "Item not found"       |                                             |                                |
-|                                   |                                             |                                |
-| Endpoint                          | /items/{itemname}                           |                                |
-| HTTP Method                       | DELETE                                      |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Removes an item from the registry."        |                                |
-| operationId                       | "removeItemFromRegistry"                   |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|                                   |                                             |                                |
-|       404: "Item not found or item is not editable." |                     |                                |
-| Security                          |                                             |                                |
-|                                   | oauth2:                                     |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /items                                      |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Get all available items."                 |                                |
-| operationId                       | "getItems"                                  |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "type"                                | in: "query"                    |
-|                                   |       description: "item type filter"       |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "tags"                                | in: "query"                    |
-|                                   |       description: "item tag filter"        |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "metadata"                            | in: "query"                    |
-|                                   |       description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "recursive"                           | in: "query"                    |
-|                                   |       description: "get member items recursively" |                         |
-|                                   |       schema: type: "boolean"              | default: false                 |
-|                                   |                                             |                                |
-|                                   | name: "fields"                              | in: "query"                    |
-|                                   |       description: "limit output to the given fields (comma separated)" |       |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                   | schema: {...}                  |
-|                                   |                                             |                                |
-| Endpoint                          | /items                                      |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Adds a list of items to the registry or updates the existing items." |         |
-| operationId                       | "addOrUpdateItemsInRegistry"                |                                |
-| Request Body                      |                                             |                                |
-|       description: "array of item data" |                                          |                                |
-|       content: application/json   |                                             |                                |
-|       schema: type: "array"       |                                             | required: true                 |
-|       items: {...}                |                                             |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: */*                               | schema: {...}                  |
-|                                   |                                             |                                |
-|       400: "Payload is invalid."  |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /items/{itemname}/state                     |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Gets the state of an item."               |                                |
-| operationId                       | "getItemState_1"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: text/plain                         | schema: {...}                  |
-|                                   |                                             |                                |
-|       404: "Item not found"       |                                             |                                |
-|                                   |                                             |                                |
-| Endpoint                          | /items/{itemname}/state                     |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Updates the state of an item."            |                                |
-| operationId                       | "updateItemState"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemname"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Request Body                      |                                             |                                |
-|       description: "valid item state (e.g. ON, OFF)" |                                 |                                |
-|       content: text/plain         |                                             |                                |
-|       schema: type: "string"      |                                             | required: true                 |
-| Responses                         |                                             |                                |
-|       202: "Accepted"             |                                             |                                |
-|                                   |                                             |                                |
-|       400: "Item state null"      |                                             |                                |
-|                                   |                                             |                                |
-|       404: "Item not found"       |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /items/{itemName}/semantic/{semanticClass} |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "items"                                     |                                |
-| Summary                           | "Gets the item which defines the requested semantics of an item." |           |
-| operationId                       | "getSemanticItem"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemName"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "semanticClass"                      | in: "path"                     |
-|                                   |       description: "semantic class"        | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|                                   |                                             |                                |
-|       404: "Item not found"       |                                             |                                |
-
-| Element                           | Details                                   | Further                        |
-|-----------------------------------|-------------------------------------------|--------------------------------|
-| Endpoint                          | /items/metadata/purge                     |                                |
-| HTTP Method                       | POST                                      |                                |
-| Tags                              | "items"                                   |                                |
-| Summary                           | "Remove unused/orphaned metadata."        |                                |
-| operationId                       | "purgeDatabase"                           |                                |
-| Responses                         |                                           |                                |
-|       200: "OK"                   |                                           |                                |
-| Security                          |                                           |                                |
-|       oauth2:                     |                                           |                                |
-|          0: "admin"               |                                           |                                |
-
+| Endpoint                           | HTTP Method | Tags     | Summary                                    | operationId            | Parameters                               | Request Body   | Responses                                                          | Security          |
+|-----------------------------------|-------------|----------|--------------------------------------------|------------------------|------------------------------------------|----------------|-------------------------------------------------------------------|-------------------|
+| /items/{itemName}/members/{memberItemName} | PUT         | "items"  | "Adds a new member to a group item."       | "addMemberToGroupItem" | name: "itemName"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
+|                                   |             |          |                                            |                        | in: "path"                             |                | 404: "Item or member item not found or item is not of type group item." |                   |
+|                                   |             |          |                                            |                        | description: "item name"               |                | 405: "Member item is not editable."                              |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "memberItemName"                 |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "member item name"        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+| /items/{itemname}/metadata/{namespace} | PUT         | "items"  | "Adds metadata to an item."               | "addMetadataToItem"    | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
+|                                   |             |          |                                            |                        | in: "path"                             |                | 201: "Created"                                                     |                   |
+|                                   |             |          |                                            |                        | description: "item name"               |                | 400: "Metadata value empty."                                       |                   |
+|                                   |             |          |                                            |                        | required: true                        |                | 404: "Item not found."                                             |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                | 405: "Metadata not editable."                                      |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "namespace"                     |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "namespace"              |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+| /items/{itemname}/tags/{tag}       | PUT         | "items"  | "Adds a tag to an item."                   | "addTagToItem"         | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
+|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item name"               |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found."                                             |                   |
+|                                   |             |          |                                            |                        |                                      |                | 405: "Item not editable."                                          |                   |
+| /items/{itemname}/tags/{tag}       | DELETE      | "items"  | "Removes a tag from an item."              | "removeTagFromItem"    | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
+|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item name"               |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found."                                             |                   |
+|                                   |             |          |                                            |                        |                                      |                | 405: "Item not editable."                                          |                   |
+| /items/{itemname}                 | GET         | "items"  | "Gets a single item."                      | "getItemByName"        | name: "Accept-Language"                |                | 200: "OK"                                                          |                   |
+|                                   |             |          |                                            |                        | description: "language"                |                | 404: "Item not found"                                              |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "metadata"                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "recursive"                     |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "get member items if the item is a group item" |         |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "boolean"              | default: true                  |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                | 200: "OK"                                                          |                   |
+|                                   |             |          |                                            |                        | content: application/json             | schema: {...}                  |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | 404: "Item not found."               |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | 405: "Item not editable."            |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | oauth2:                               |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        | 0: "admin"                           |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+| /items                             | GET         | "items"  | "Get all available items."                 | "getItems"             | name: "Accept-Language"                |                | 200: "OK"                                                          |                   |
+|                                   |             |          |                                            |                        | description: "language"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "type"                          |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item type filter"       |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "tags"                          |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item tag filter"        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "metadata"                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "recursive"                     |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "get member items recursively" |                       |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "boolean"              | default: false                 |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "fields"                        |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "limit output to the given fields (comma separated)" |       |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | 200: "OK"                            | content: application/json       | schema: {...}                  |                                      |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+| /items                             | PUT         | "items"  | "Adds a list of items to the registry or updates the existing items." |         | name: "Accept-Language"                |                | 200: "OK"                                                          | oauth2: "admin"   |
+|                                   |             |          |                                            |                        | description: "language"                |                | 400: "Payload is invalid."                                         |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | 200: "OK"                            | content: */*                    | schema: {...}                  |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | 405: "Item not editable."            |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+|                                   |             |          |                                            |                        | oauth2:                               |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        | 0: "admin"                           |                                      |                                                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
+| /items/{itemname}/state           | GET         | "items"  | "Gets the state of an item."               | "getItemState_1"       | name: "itemname"                       |                | 200: "OK"                                                          |                   |
+|                                   |             |          |                                            |                        | in: "path"                             |                | content: text/plain                 |                   |
+|                                   |             |          |                                            |                        | description: "item name"               |                | schema: {...}                      |                   |
+|                                   |             |          |                                            |                        | required: true                        |                |                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found"              |                   |
+| /items/{itemname}/state           | PUT         | "items"  | "Updates the state of an item."            | "updateItemState"     | name: "Accept-Language"                |                | 202: "Accepted"                   |                   |
+|                                   |             |          |                                            |                        | in: "header"                           |                | 400: "Item state null"           |                   |
+|                                   |             |          |                                            |                        | description: "language"                |                | 404: "Item not found"              |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
+|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                   |                   |
+|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                   |                   |
+|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
+|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found"              |                   |
+| /items/{itemName}/semantic/{semanticClass} | GET     | "items"  | "Gets the item which defines the requested semantics of an item." | "getSemanticItem" | name: "Accept-Language"                |                | 200: "OK"                      |               |
+|                                   |             |          |                                                |                    | in: "header"                           |                | 404: "Item not found"          |               |
+|                                   |             |          |                                                |                    | description: "language"                |                |                               |               |
+|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
+|                                   |             |          |                                                |                    |                                      |                |                               |               |
+|                                   |             |          |                                                |                    | name: "itemName"                      |                |                               |               |
+|                                   |             |          |                                                |                    | description: "item name"               | required: true                 |                               |               |
+|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
+|                                   |             |          |                                                |                    |                                      |                |                               |               |
+|                                   |             |          |                                                |                    | name: "semanticClass"                  |                |                               |               |
+|                                   |             |          |                                                |                    | description: "semantic class"        | required: true                 |                               |               |
+|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
+| /items/metadata/purge             | POST        | "items"  | "Remove unused/orphaned metadata."            | "purgeDatabase"    |                                      |                | 200: "OK"                      | oauth2:        |
+|                                   |             |          |                                                |                    |                                      |                |                               | 0: "admin"    |
 
 ### links
 
