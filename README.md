@@ -595,148 +595,20 @@ Client libraries to access the REST API of openHAB.
 
 ### thing-types
 
-| Element          | Details                                                           |
-|------------------|-------------------------------------------------------------------|
-| Endpoint         | /thing-types                                                      |
-| HTTP Method      | GET                                                               |
-| Tags             | "thing-types"                                                     |
-| Summary          | "Gets all available thing types without config description, channels and properties." |
-| operationId      | "getThingTypes"                                                   |
-| Parameters       |                                                                   |
-|                  | name: "Accept-Language"                                          |
-|                  | in: "header"                                                     |
-|                  | description: "language"                                          |
-|                  | schema:                                                           |
-|                  |     type: "string"                                               |
-|                  |                                                                   |
-|                  | name: "bindingId"                                                |
-|                  | in: "query"                                                      |
-|                  | description: "filter by binding Id"                               |
-|                  | schema:                                                           |
-|                  |     type: "string"                                               |
-| Responses        |                                                                   |
-|     200: "OK"   |                                                                   |
-| Content          | application/json                                                  |
-| Schema           | uniqueItems: true                                                 |
-|                  | type: "array"                                                    |
-|                  | items: $ref: "#/components/schemas/StrippedThingTypeDTO"          |
-
-| Element          | Details                                                                          |
-|------------------|----------------------------------------------------------------------------------|
-| Endpoint         | /thing-types/{thingTypeUID}                                                      |
-| HTTP Method      | GET                                                                              |
-| Tags             | "thing-types"                                                                    |
-| Summary          | "Gets thing type by UID."                                                        |
-| operationId      | "getThingTypeById"                                                               |
-| Parameters       |                                                                                  |
-|                  | name: "thingTypeUID"                                                            |
-|                  | in: "path"                                                                      |
-|                  | description: "thingTypeUID"                                                     |
-|                  | required: true                                                                   |
-|                  | schema:                                                                          |
-|                  |     type: "string"                                                              |
-|                  |                                                                                  |
-|                  | name: "Accept-Language"                                                        |
-|                  | in: "header"                                                                    |
-|                  | description: "language"                                                         |
-|                  | schema:                                                                          |
-|                  |     type: "string"                                                              |
-| Responses        |                                                                                  |
-|     200: "OK"    | Thing type with provided thingTypeUID does not exist.                            |
-| Content          | application/json                                                                 |
-| Schema           | {…}                                                                              |
-|     404: "Not found" | No content                                                                     |
-
+| Endpoint         | Method | Tags            | Summary                                                        | Operation ID      | Parameters                                                                                                | Responses                         |
+| ---------------- | ------ | --------------- | -------------------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| /thing-types     | GET    | "thing-types"   | "Gets all available thing types without config description, channels and properties." | "getThingTypes"   | name: "Accept-Language" in: "header" description: "language" schema: type: "string"                   | 200: "OK" Content: application/json Schema: uniqueItems: true type: "array" items: $ref: "#/components/schemas/StrippedThingTypeDTO" |
+|                  |        |                 |                                                                |                  | name: "bindingId" in: "query" description: "filter by binding Id" schema: type: "string"                |                                  |
+| /thing-types/{thingTypeUID} | GET      | "thing-types"      | "Gets thing type by UID."                                                    | "getThingTypeById" | name: "thingTypeUID" in: "path" description: "thingTypeUID" required: true schema: type: "string" | 200: "OK" Content: application/json Schema: {...} | 404: "Not found" No content |
 
 ### transformations
 
-| Element                         | Details                                                                            |
-|---------------------------------|------------------------------------------------------------------------------------|
-| Endpoint                        | /transformations/{uid}                                                            |
-| HTTP Method                     | GET                                                                                |
-| Tags                            | "transformations"                                                                 |
-| Summary                         | "Get a single transformation"                                                     |
-| operationId                     | "getTransformation"                                                               |
-| Parameters                      |                                                                                    |
-|     name: "uid"                |                                                                                    |
-|     in: "path"                 |                                                                                    |
-|     description: "Transformation UID" |                                                                                    |
-|     required: true             |                                                                                    |
-|     schema:                     |                                                                                    |
-|         type: "string"          |                                                                                    |
-| Responses                       |                                                                                    |
-|     200: "OK"                  |                                                                                    |
-|     content:                   |                                                                                    |
-|         application/json        |                                                                                    |
-|     schema: {…}                |                                                                                    |
-|     404: "Not found"           |                                                                                    |
-| Security                        |                                                                                    |
-|     0: oauth2                  |                                                                                    |
-|         0: "admin"             |                                                                                    |
-| Endpoint                        | /transformations/{uid}                                                            |
-| HTTP Method                     | PUT                                                                                |
-| Tags                            | "transformations"                                                                 |
-| Summary                         | "Put a single transformation"                                                     |
-| operationId                     | "putTransformation"                                                               |
-| Parameters                      |                                                                                    |
-|     name: "uid"                |                                                                                    |
-|     in: "path"                 |                                                                                    |
-|     description: "Transformation UID" |                                                                                    |
-|     required: true             |                                                                                    |
-|     schema:                     |                                                                                    |
-|         type: "string"          |                                                                                    |
-| Request Body                    |                                                                                    |
-|     description: "transformation" |                                                                                    |
-|     content:                   |                                                                                    |
-|         application/json        |                                                                                    |
-|     schema:                     |                                                                                    |
-|         $ref: "#/components/schemas/TransformationDTO" |                                                                                    |
-|     required: true             |                                                                                    |
-| Responses                       |                                                                                    |
-|     200: "OK"                  |                                                                                    |
-|     400: "Bad Request (content missing or invalid)" |                                                                                    |
-|     405: "Transformation not editable" |                                                                                    |
-| Security                        |                                                                                    |
-|     0: oauth2                  |                                                                                    |
-|         0: "admin"             |                                                                                    |
-| Endpoint                        | /transformations/{uid}                                                            |
-| HTTP Method                     | DELETE                                                                             |
-| Tags                            | "transformations"                                                                 |
-| Summary                         | "Get a single transformation"                                                     |
-| operationId                     | "deleteTransformation"                                                            |
-| Parameters                      |                                                                                    |
-|     name: "uid"                |                                                                                    |
-|     in: "path"                 |                                                                                    |
-|     description: "Transformation UID" |                                                                                    |
-|     required: true             |                                                                                    |
-|     schema:                     |                                                                                    |
-|         type: "string"          |                                                                                    |
-| Responses                       |                                                                                    |
-|     200: "OK"                  |                                                                                    |
-|     404: "UID not found"       |                                                                                    |
-|     405: "Transformation not editable" |                                                                                    |
-| Security                        |                                                                                    |
-|     0: oauth2                  |                                                                                    |
-|         0: "admin"             |                                                                                    |
-
-| Element            | Details                                               |
-|--------------------|-------------------------------------------------------|
-| Endpoint           | /transformations                                      |
-| HTTP Method        | GET                                                   |
-| Tags               | "transformations"                                    |
-| Summary            | "Get a list of all transformations"                  |
-| operationId        | "getTransformations"                                 |
-| Responses          |                                                       |
-|     200: "OK"     | Description: "OK"                                    |
-|     content:      |                                                       |
-|         application/json |                                    |
-|     schema:       |                                                       |
-|         type: "array"    |                                    |
-|         items:     |                                                       |
-|             $ref: "#/components/schemas/TransformationDTO" |  |
-| Security           |                                                       |
-|     0: oauth2     |                                                       |
-|         0: "admin" |                                                       |
+| Endpoint         | Method | Tags            | Summary                                        | Operation ID      | Parameters                                                                                                | Responses                         |
+| ---------------- | ------ | --------------- | ---------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| /transformations/{uid} | GET    | "transformations" | "Get a single transformation"                 | "getTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | 200: "OK" content: application/json schema: {...} | 404: "Not found" No content |
+| /transformations/{uid} | PUT    | "transformations" | "Put a single transformation"                 | "putTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | Request Body description: "transformation" content: application/json schema: $ref: "#/components/schemas/TransformationDTO" required: true | 200: "OK" 400: "Bad Request (content missing or invalid)" 405: "Transformation not editable" |
+| /transformations/{uid} | DELETE | "transformations" | "Get a single transformation"                 | "deleteTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | 200: "OK" 404: "UID not found" 405: "Transformation not editable" |
+| /transformations   | GET    | "transformations" | "Get a list of all transformations"           | "getTransformations" | - | 200: "OK" content: application/json schema: type: "array" items: $ref: "#/components/schemas/TransformationDTO" | 0: oauth2 0: "admin" |
 
 ### ui
 
