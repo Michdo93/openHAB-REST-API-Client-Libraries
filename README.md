@@ -285,123 +285,79 @@ Client libraries to access the REST API of openHAB.
 
 ### links
 
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /links                                      |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Gets all available links."                |                                |
-| operationId                       | "getItemLinks"                              |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "channelUID"                         | in: "query"                    |
-|                                   |       description: "filter by channel UID" |                                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemName"                           | in: "query"                    |
-|                                   |       description: "filter by item name"   |                                |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /links/{itemName}/{channelUID}             |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Retrieves an individual link."            |                                |
-| operationId                       | "getItemLink"                               |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemName"                            | in: "path"                     |
-|                                   |       description: "item name"             | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "channelUID"                          | in: "path"                     |
-|                                   |       description: "channel UID"           | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-|       404: "Content does not match the path" |                                       |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-| Endpoint                          | /links/{itemName}/{channelUID}             |                                |
-| HTTP Method                       | PUT                                         |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Links an item to a channel."              |                                |
-| operationId                       | "linkItemToChannel"                         |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemName"                            | in: "path"                     |
-|                                   |       description: "itemName"              | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "channelUID"                          | in: "path"                     |
-|                                   |       description: "channelUID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Request Body                      |                                             |                                |
-|       description: "link data"    |                                             |                                |
-|       content: application/json   |                                             |                                |
-|       schema: $ref: "#/components/schemas/ItemChannelLinkDTO" |                           |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|       400: "Content does not match the path" |                                       |                                |
-|       405: "Link is not editable" |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-| Endpoint                          | /links/{itemName}/{channelUID}             |                                |
-| HTTP Method                       | DELETE                                      |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Unlinks an item from a channel."          |                                |
-| operationId                       | "unlinkItemFromChannel"                    |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "itemName"                            | in: "path"                     |
-|                                   |       description: "itemName"              | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "channelUID"                          | in: "path"                     |
-|                                   |       description: "channelUID"            | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-|       404: "Link not found."      |                                             |                                |
-|       405: "Link not editable."   |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /links/purge                                |                                |
-| HTTP Method                       | POST                                        |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Remove unused/orphaned links."            |                                |
-| operationId                       | "purgeDatabase_1"                           |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /links/{object}                             |                                |
-| HTTP Method                       | DELETE                                      |                                |
-| Tags                              | "links"                                     |                                |
-| Summary                           | "Delete all links that refer to an item or thing." |                           |
-| operationId                       | "removeAllLinksForObject"                   |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "object"                              | in: "path"                     |
-|                                   |       description: "item name or thing UID" | required: true                 |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   |                                             |                                |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
-
+| Endpoint                          | HTTP Method | Tags     | Summary                                        | operationId        | Parameters                               | Request Body   | Responses                      | Security      |
+|-----------------------------------|-------------|----------|------------------------------------------------|--------------------|------------------------------------------|----------------|-------------------------------|---------------|
+| /links                            | GET         | "links"  | "Gets all available links."                  | "getItemLinks"     | name: "channelUID"                     |                | 200: "OK"                      | oauth2:        |
+|                                   |             |          |                                                |                    | in: "query"                          |                |                               | 0: "admin"    |
+|                                   |             |          |                                                |                    | description: "filter by channel UID" |                |                               |               |
+|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
+|                                   |             |          |                                                |                    |                                      |                |                               |               |
+|                                   |             |          |                                                |                    | name: "itemName"                     |                |                               |               |
+|                                   |             |          |                                                |                    | description: "filter by item name"   |                |                               |               |
+|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
+|                                   |             |          |                                                |                    |                                      |                |                               |               |
+|                                   |             |          |                                                |                    |                                      |                | 200: "OK"                      |               |
+|                                   |             |          |                                                |                    | content: application/json            | schema: {...}                  |                               |               |
+|                                   |             |          |                                                |                    |                                      |                |                               |               |
+|                                   |             |          |                                                |                    | oauth2:                               |                                |                               |               |
+|                                   |             |          |                                                |                    | 0: "admin"                           |                                |                               |               |
+| /links/{itemName}/{channelUID}   | GET                                           |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+|                                  |                                             |                                |
+| /links/{itemName}/{channelUID}   | GET         | "links"  | "Retrieves an individual link."              | "getItemLink"          | name: "itemName"                     |                                    | 200: "OK"                          | oauth2: 0: "admin" |
+|                                  |             |          |                                               |                        | in: "path"                           |                                    | 404: "Content does not match the path" |                   |
+|                                  |             |          |                                               |                        | description: "item name"             |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | name: "channelUID"                  |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | description: "channel UID"          |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+| /links/{itemName}/{channelUID}    | PUT         | "links"  | "Links an item to a channel."                | "linkItemToChannel" | name: "itemName"                     |                | 200: "OK"                      | oauth2: 0: "admin" |
+|                                   |             |          |                                               |                    | in: "path"                           |                | 400: "Content does not match the path" |               |
+|                                   |             |          |                                               |                    | description: "item name"             |                | 405: "Link is not editable"    |               |
+|                                   |             |          |                                               |                    | required: true                      |                |                               |               |
+|                                   |             |          |                                               |                    | schema: type: "string"              |                |                               |               |
+|                                   |             |          |                                               |                    |                                      |                |                               |               |
+|                                   |             |          |                                               |                    | name: "channelUID"                  |                |                               |               |
+|                                   |             |          |                                               |                    | description: "channel UID"          |                |                               |               |
+|                                   |             |          |                                               |                    | required: true                      |                |                               |               |
+|                                   |             |          |                                               |                    | schema: type: "string"              |                |                               |               |
+| /links/{itemName}/{channelUID}    | DELETE      | "links"  | "Unlinks an item from a channel."           | "unlinkItemFromChannel" | name: "itemName"                     |                                    | 200: "OK"                          | oauth2: 0: "admin" |
+|                                  |             |          |                                               |                        | in: "path"                           |                                    | 404: "Link not found."            |                   |
+|                                  |             |          |                                               |                        | description: "itemName"             |                                    | 405: "Link not editable."         |                   |
+|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | name: "channelUID"                  |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | description: "channelUID"            |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
+| /links/purge   | POST        | "links" | "Remove unused/orphaned links."     | "purgeDatabase_1" |                     |                    | 200: "OK"         | oauth2: 0: "admin" |
+| /links/{object}             | DELETE      | "links" | "Delete all links that refer to an item or thing." | "removeAllLinksForObject"  |                                      |              | 200: "OK"   | oauth2: 0: "admin" |
 
 ### logging
 
