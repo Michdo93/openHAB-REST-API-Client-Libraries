@@ -453,30 +453,20 @@ Client libraries to access the REST API of openHAB.
 
 ### profile-types
 
-| Element                           | Details                                     | Further                        |
-|-----------------------------------|---------------------------------------------|--------------------------------|
-| Endpoint                          | /profile-types                              |                                |
-| HTTP Method                       | GET                                         |                                |
-| Tags                              | "profile-types"                             |                                |
-| Summary                           | "Gets all available profile types."        |                                |
-| operationId                       | "getProfileTypes"                           |                                |
-| Parameters                        |                                             |                                |
-|                                   | name: "Accept-Language"                    | in: "header"                   |
-|                                   |       description: "language"              | required: false                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "channelTypeUID"                     | in: "query"                    |
-|                                   |       description: "channel type filter"   | required: false                |
-|                                   |       schema: type: "string"               |                                |
-|                                   |                                             |                                |
-|                                   | name: "itemType"                           | in: "query"                    |
-|                                   |       description: "item type filter"      | required: false                |
-|                                   |       schema: type: "string"               |                                |
-| Responses                         |                                             |                                |
-|       200: "OK"                   | content: application/json                  | schema: {...}                  |
-| Security                          |                                             |                                |
-|       oauth2:                     |                                             |                                |
-|          0: "admin"               |                                             |                                |
+| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
+|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
+| /profile-types                        | GET         | "profile-types" | "Gets all available profile types."                    | "getProfileTypes"                     | name: "Accept-Language"                      |                                | 200: "OK"                            | oauth2: 0: "admin"    |
+|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | description: "language"                    | required: false                |                                      |                       |
+|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | name: "channelTypeUID"                     | in: "query"                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | description: "channel type filter"         | required: false                |                                      |                       |
+|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | name: "itemType"                           | in: "query"                                |                                      |                       |
+|                                       |             |               |                                                         |                                        | description: "item type filter"            | required: false                |                                      |                       |
+|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        |                                          |                                |                                      |                       |
+|                                       |             |               |                                                         |                                        |                                          |                                |                                      |                       |
 
 ### rules
 
