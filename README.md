@@ -524,97 +524,42 @@ Client libraries to access the REST API of openHAB.
 
 ### sitemaps
 
-| Element               | Details                                  |
-|-----------------------|------------------------------------------|
-| Endpoint              | /sitemaps/events/subscribe              |
-| HTTP Method           | POST                                     |
-| Tags                  | "sitemaps"                               |
-| Summary               | "Creates a sitemap event subscription."  |
-| operationId           | "createSitemapEventSubscription"         |
-| Responses             |                                          |
-|     201: "Created"    | Subscription created.                    |
-|     503:             | Subscriptions limit reached.             |
-
-| Element                  | Details                                                    |
-|--------------------------|------------------------------------------------------------|
-| Endpoint                 | /sitemaps/{sitemapname}/{pageid}                           |
-| HTTP Method              | GET                                                        |
-| Tags                     | "sitemaps"                                                 |
-| Summary                  | "Polls the data for a sitemap."                            |
-| operationId              | "pollDataForSitemap"                                       |
-| Parameters               |                                                            |
-|     Accept-Language     | Header                                                     |
-|     sitemapname         | Path - sitemap name                                        |
-|     pageid              | Path - page id                                             |
-|     subscriptionid      | Query - subscriptionid                                     |
-|     includeHidden       | Query - include hidden widgets (boolean)                  |
-| Responses                |                                                            |
-|     200: "OK"           | Content - application/json                                 |
-|     400:                | Invalid subscription id has been provided.                |
-|     404:                | Sitemap with requested name does not exist or page does   |
-|                          | not exist, or page refers to a non-linkable widget.        |
-
-| Element                  | Details                                                    |
-|--------------------------|------------------------------------------------------------|
-| Endpoint                 | /sitemaps/{sitemapname}                                    |
-| HTTP Method              | GET                                                        |
-| Tags                     | "sitemaps"                                                 |
-| Summary                  | "Get sitemap by name."                                     |
-| operationId              | "getSitemapByName"                                         |
-| Parameters               |                                                            |
-|     Accept-Language     | Header                                                     |
-|     sitemapname         | Path - sitemap name                                        |
-|     type                | Query - type                                               |
-|     jsoncallback        | Query - jsoncallback (default: "callback")                |
-|     includeHidden       | Query - include hidden widgets (boolean)                  |
-| Responses                |                                                            |
-|     200: "OK"           | Content - application/json                                 |
-|     Schema              | $ref - "#/components/schemas/SitemapDTO"                   |
-
-| Element                  | Details                                                    |
-|--------------------------|------------------------------------------------------------|
-| Endpoint                 | /sitemaps/events/{subscriptionid}                          |
-| HTTP Method              | GET                                                        |
-| Tags                     | "sitemaps"                                                 |
-| Summary                  | "Get sitemap events."                                      |
-| operationId              | "getSitemapEvents"                                         |
-| Parameters               |                                                            |
-|     subscriptionid      | Path - subscription id                                     |
-|     sitemap             | Query - sitemap name                                       |
-|     pageid              | Query - page id                                            |
-| Responses                |                                                            |
-|     200: "OK"           | Content - application/json                                 |
-|     400: "Page not linked to the subscription."    |                                                            |
-|     404: "Subscription not found."             |                                                            |
-
-| Element                  | Details                                                    |
-|--------------------------|------------------------------------------------------------|
-| Endpoint                 | /sitemaps                                                  |
-| HTTP Method              | GET                                                        |
-| Tags                     | "sitemaps"                                                 |
-| Summary                  | "Get all available sitemaps."                             |
-| operationId              | "getSitemaps"                                              |
-| Responses                |                                                            |
-|     200: "OK"           | Content - application/json                                 |
-|                          | Schema - type: array                                       |
-|                          |          items: $ref: "#/components/schemas/SitemapDTO"    |
+| Endpoint                         | HTTP Method | Tags      | Summary                                          | operationId                     | Parameters                     | Responses                                            |
+|---------------------------------|-------------|-----------|--------------------------------------------------|---------------------------------|--------------------------------|-----------------------------------------------------|
+| /sitemaps/events/subscribe      | POST        | "sitemaps" | "Creates a sitemap event subscription."         | "createSitemapEventSubscription" |                                | 201: "Created"                                       |
+|                                 |             |           |                                                  |                                 |                                |     Subscription created.                           |
+|                                 |             |           |                                                  |                                 |                                | 503:                                               |
+|                                 |             |           |                                                  |                                 |                                |     Subscriptions limit reached.                     |
+| /sitemaps/{sitemapname}/{pageid} | GET         | "sitemaps" | "Polls the data for a sitemap."                | "pollDataForSitemap"            | Accept-Language                | 200: "OK"                                           |
+|                                 |             |           |                                                  |                                 | sitemapname                     | 400:                                                |
+|                                 |             |           |                                                  |                                 | pageid                          |     Invalid subscription id has been provided.     |
+|                                 |             |           |                                                  |                                 | subscriptionid                  | 404:                                                |
+|                                 |             |           |                                                  |                                 | includeHidden                   |     Sitemap with requested name does not exist or   |
+|                                 |             |           |                                                  |                                 |                                |     page does not exist, or page refers to a      |
+|                                 |             |           |                                                  |                                 |                                |     non-linkable widget.                         |
+| /sitemaps/{sitemapname}          | GET         | "sitemaps" | "Get sitemap by name."                   | "getSitemapByName"      | Accept-Language                | 200: "OK"                                     |
+|                                 |             |           |                                           |                         | sitemapname                     |     Content - application/json                 |
+|                                 |             |           |                                           |                         | type                            | Schema                                        |
+|                                 |             |           |                                           |                         | jsoncallback                    |     $ref - "#/components/schemas/SitemapDTO"  |
+|                                 |             |           |                                           |                         | includeHidden                   |                                               |
+| /sitemaps/events/{subscriptionid}    | GET         | "sitemaps"  | "Get sitemap events."                     | "getSitemapEvents"      | subscriptionid                  | 200: "OK"                                    |
+|                                     |             |             |                                           |                         | sitemap                         |     Content - application/json                |
+|                                     |             |             |                                           |                         | pageid                          | 400: "Page not linked to the subscription."   |
+|                                     |             |             |                                           |                         |                                 | 404: "Subscription not found."                |
+| /sitemaps              | GET         | "sitemaps"  | "Get all available sitemaps."         | "getSitemaps"   |                    | 200: "OK"                          |
+|                        |             |             |                                        |                 |                    | Content - application/json          |
+|                        |             |             |                                        |                 |                    | Schema - type: array                |
+|                        |             |             |                                        |                 |                    |          items: $ref: "#/components/schemas/SitemapDTO" |
 
 ### systeminfo
 
-| Element        | Details                                        |
-|----------------|------------------------------------------------|
-| Endpoint       | /systeminfo                                    |
-| HTTP Method    | GET                                            |
-| Tags           | "systeminfo"                                   |
-| Summary        | "Gets information about the system."           |
-| operationId    | "getSystemInformation"                         |
-| Responses      |                                                |
-|     200: "OK"  | OK                                             |
-| Content        | application/json                               |
-| Schema         | $ref	"#/components/schemas/SystemInfoBean"                                          |
-| Security       |                                                |
-|     oauth2:    | "admin"                                        |
-
+| Endpoint        | Method | Tags       | Summary                           | Operation ID          | Parameters                                  | Responses                                          |
+|-----------------|--------|------------|-----------------------------------|-----------------------|---------------------------------------------|---------------------------------------------------|
+| /systeminfo     | GET    | "systeminfo" | "Gets information about the system." | "getSystemInformation" |                                             | 200: "OK"                                         |
+|                 |        |            |                                   |                       |                                             | Content - application/json                        |
+|                 |        |            |                                   |                       |                                             | Schema - $ref "#/components/schemas/SystemInfoBean" |
+|                 |        |            |                                   |                       |                                             | Security                                        |
+|                 |        |            |                                   |                       |                                             |     oauth2: "admin"                            |
 
 ### templates
 
