@@ -1,4 +1,4 @@
-# openHAB REST Client Libraries — Overview
+# openHAB REST API Client Libraries — Overview
 
 A family of client libraries for the [openHAB REST API](https://www.openhab.org/docs/configuration/restdocs.html), available in eight languages: **Python, JavaScript, Node.js, Java, C#, C++, C, and Kotlin/Android**.
 
