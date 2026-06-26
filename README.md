@@ -1,645 +1,763 @@
-# openHAB-REST-API-Client-Libraries
-Client libraries to access the REST API of openHAB.
-
-| REST endpoints | [Android-Java](https://github.com/Michdo93/android-java-openHAB-Client-Library) | [Android-Kotlin](https://github.com/Michdo93/android-kotlin-openHAB-Client-Library) | [C++](https://github.com/Michdo93/cpp-openHAB-Client-Library) | [C#](https://github.com/Michdo93/csharp-openHAB-Client-Library) | [Java](https://github.com/Michdo93/java-openHAB-Client-Library) | [JavaScript](https://github.com/Michdo93/JavaScript-openHAB-Client-Library) | [jQuery](https://github.com/Michdo93/jQuery-openHAB-Client-Library) | [NodeJS](https://github.com/Michdo93/NodeJS-openHAB-Client-Library) | [Python](https://github.com/Michdo93/Python-openHAB-Client-Library) |
-| -------------- | ------------ | -------------- | --- | -- | ---- | ---------- | ------ | ------ | ------ |
-| addons         | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| audio          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| auth           | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| bindings       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| channel-types  | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| config-descriptions | :x:    | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| discovery      | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| events         | :x:          | :x:            | :x: | :heavy_check_mark:| :heavy_check_mark:  | :heavy_check_mark:        | :x:    | :x:    | :heavy_check_mark:    |
-| habpanel       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| iconsets       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| inbox          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| items          | :heavy_check_mark:          | :x:            | :x: | :heavy_check_mark:| :heavy_check_mark:  | :heavy_check_mark:        | :x:    | :x:    | :heavy_check_mark:    |
-| links          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| logging        | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| module-types   | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| persistence    | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| profile-types  | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| rules          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| services       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| sitemaps       | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| systeminfo     | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| templates      | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| things         | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| thing-types    | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| transformations| :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| ui             | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| uuid           | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-| voice          | :x:          | :x:            | :x: | :x:| :x:  | :x:        | :x:    | :x:    | :x:    |
-
-## Endpoint description
-
-| Element        | Details                                                                       |
-|----------------|-------------------------------------------------------------------------------|
-| Endpoint       | /                                                                             |
-| HTTP Method    | GET                                                                           |
-| Tags           | "root"                                                                        |
-| Summary        | "Gets information about the runtime, the API version and links to resources." |
-| operationId    | "getRoot"                                                                     |
-| Responses      | 200: "OK"                                                                     |
-| Content        | application/json                                                              |
-| Schema         | $ref: "#/components/schemas/RootBean"                                         |
-
-
-### addons
-
-| Endpoint   | Method | Tags   | Summary                                     | Operation ID | Parameters                                                  | Responses                           |
-| ---------- | ------ | ------ | ------------------------------------------- | ------------ | ----------------------------------------------------------- | ----------------------------------- |
-| /addons    | GET    | addons | Get all add-ons.                            | getAddons    | Accept-Language (header)<br>type: string<br>serviceId (query)<br>type: string | 200 - OK<br>404 - Service not found |
-| /addons/{addonId}  | GET    | addons | Get add-on with given ID | getAddonById   | Accept-Language (header)<br>type: string<br>addonId (path)<br>type: string<br>serviceId (query)<br>type: string | 200 - OK<br>404 - Not found |
-| /addons/services      | GET    | addons | Get all add-on types | getAddonTypes   | Accept-Language (header)<br>type: string | 200 - OK        |
-| /addons/types         | GET    | addons | Get add-on services | getAddonServices  | Accept-Language (header)<br>type: string<br>serviceId (query)<br>type: string | 200 - OK<br>404 - Service not found |
-| /addons/{addonId}/install | POST   | addons | Installs the add-on with the given ID. | installAddonById   | addonId (path)<br>type: string<br>required: true<br>serviceId (query)<br>type: string | 200 - OK<br>404 - Not found |
-| /addons/url/{url}/install       | POST   | addons | Installs the add-on from the given URL. | installAddonFromURL | url (path)<br>type: string<br>required: true | 200 - OK<br>400 - The given URL is malformed or not valid. |
-| /addons/{addonId}/uninstall      | POST   | addons | Uninstalls the add-on with the given ID. | uninstallAddon | addonId (path)<br>type: string<br>required: true | 200 - OK<br>404 - Not found       |
-
-### audio
-
-| Endpoint           | Method | Tags  | Summary                                               | Operation ID        | Responses                                                                                       |
-| ------------------ | ------ | ----- | ----------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------- |
-| /audio/defaultsink | GET    | audio | Get the default sink if defined or the first available sink. | getAudioDefaultSink | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/AudioSinkDTO"<br>404 - Sink not found |
-| /audio/defaultsource | GET    | audio | Get the default source if defined or the first available source. | getAudioDefaultSource  | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/AudioSourceDTO"<br>404 - Source not found |
-| /audio/sinks   | GET    | audio | Get the list of all sinks.   | getAudioSinks     | 200 - OK<br>content: application/json<br>schema: type: array<br>items: $ref: "#/components/schemas/AudioSinkDTO" |
-| /audio/sources  | GET    | audio | Get the list of all sources.| getAudioSources    | 200 - OK<br>content: application/json<br>schema: type: array<br>items: $ref: "#/components/schemas/AudioSourceDTO" |
-
-
-### auth
-
-| Endpoint     | Method | Tags  | Summary                                           | Operation ID    | Request Body                                                                                            | Responses                                    |
-| ------------ | ------ | ----- | ------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| /auth/logout | POST   | auth  | Delete the session associated with a refresh token. | deleteSession   | content: application/x-www-form-urlencoded<br>schema: type: object<br>properties: refresh_token: type: string id: type: string | 200 - OK<br>401 - User is not authenticated<br>404 - User or refresh token not found |
-| /auth/apitokens    | GET    | auth  | List the API tokens associated to the authenticated user. | getApiTokens   | 200 - OK<br>401 - User is not authenticated<br>404 - User not found |
-| /auth/sessions    | GET    | auth  | List the sessions associated to the authenticated user. | getSessionsForCurrentUser | 200 - OK<br>401 - User is not authenticated<br>404 - User not found |
-| /auth/token   | POST   | auth  | Get access and refresh tokens. | getOAuthToken | useCookie (query)<br>type: boolean            | grant_type (form data)<br>type: string<br>code (form data)<br>type: string<br>redirect_uri (form data)<br>type: string<br>client_id (form data)<br>type: string<br>refresh_token (form data)<br>type: string<br>code_verifier (form data)<br>type: string | 200 - OK<br>400 - Invalid request parameters |
-| /auth/apitokens/{name}   | DELETE | auth  | Revoke a specified API token associated to the authenticated user. | removeApiToken | name (path)<br>type: string | 200 - OK<br>401 - User is not authenticated<br>404 - User or API token not found |
-
-### bindings
-
-| Endpoint                | Method | Tags     | Summary           | Operation ID | Parameters                                | Responses                 |
-| ----------------------- | ------ | -------- | ----------------- | ------------ | ----------------------------------------- | ------------------------- |
-| /bindings               | GET    | bindings | Get all bindings. | getBindings  | Accept-Language (header)<br>type: string | 200 - OK<br>security: oauth2 |
-| /bindings/{bindingId}/config           | GET    | bindings | Get binding configuration for given binding ID. | getBindingConfiguration  | bindingId (path)<br>type: string                     | 200 - OK<br>404 - Binding does not exist<br>500 - Configuration can not be read due to internal error<br>security: oauth2 |
-| /bindings/{bindingId}/config           | PUT    | bindings | Updates a binding configuration for given binding ID and returns the old configuration. | updateBindingConfiguration | bindingId (path)<br>type: string<br>requestBody (content)<br>type: object<br>additionalProperties (type)<br>type: object | 200 - OK<br>204 - No old configuration<br>404 - Binding does not exist<br>500 - Configuration can not be updated due to internal error<br>security: oauth2 |
-
-### channel-types
-
-| Endpoint                               | Method | Tags            | Summary                                    | Operation ID      | Parameters                                                                                               | Responses                         |
-| -------------------------------------- | ------ | --------------- | ------------------------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| /channel-types                         | GET    | channel-types   | Gets all available channel types.          | getChannelTypes   | Accept-Language (header)<br>type: string<br>prefixes (query)<br>type: string<br>description: filter UIDs by prefix (multiple comma-separated prefixes allowed, for example: 'system,mqtt') | 200 - OK<br>security: oauth2       |
-| /channel-types/{channelTypeUID}            | GET    | channel-types   | Gets channel type by UID.               | getChannelTypeByUID  | channelTypeUID (path)<br>type: string<br>description: channelTypeUID<br>required: true<br>Accept-Language (header)<br>type: string                                    | 200 - Channel type with provided channelTypeUID does not exist.<br>404 - No content<br>security: oauth2 |
-| /channel-types/{channelTypeUID}/linkableItemTypes | GET    | channel-types   | Gets the item types the given trigger channel type UID can be linked to. | getLinkableItemTypesByChannelTypeUID | channelTypeUID (path)<br>type: string<br>description: channelTypeUID<br>required: true<br>Accept-Language (header)<br>type: string | 200 - OK<br>content: application/json<br>schema: uniqueItems: true<br>type: array<br>items: type: string<br>204 - No content: channel type has no linkable items or is no trigger channel.<br>404 - Given channel type UID not found. | security: oauth2 |
-
-### config-descriptions
-
-| Endpoint                 | Method | Tags                  | Summary                                | Operation ID          | Parameters                                                                                   | Responses                                                                                                     |
-| ------------------------ | ------ | --------------------- | -------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| /config-descriptions     | GET    | config-descriptions   | Gets all available config descriptions. | getConfigDescriptions | Accept-Language (header)<br>type: string<br>scheme (query)<br>type: string<br>description: scheme filter | 200 - OK<br>content: application/json<br>schema: type: array<br>items: $ref: "#/components/schemas/ConfigDescriptionDTO" | security: oauth2 |
-| /config-descriptions/{uri}           | GET    | config-descriptions   | Gets a config description by URI.      | getConfigDescriptionByURI | Accept-Language (header)<br>type: string<br>uri (path)<br>type: string<br>description: uri | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/ConfigDescriptionDTO"<br>400 - Invalid URI syntax<br>404 - Not found | security: oauth2 |
-
-### discovery
-
-| Endpoint                           | Method | Tags           | Summary                                    | Operation ID                      | Responses                                                                               |
-| ---------------------------------- | ------ | -------------- | ------------------------------------------ | --------------------------------- | --------------------------------------------------------------------------------------- |
-| /discovery                         | GET    | discovery      | Gets all bindings that support discovery.  | getBindingsWithDiscoverySupport  | 200 - OK<br>content: application/json<br>schema: uniqueItems: true<br>type: array<br>items: type: string | security: oauth2 |
-| /discovery/bindings/{bindingId}/scan | POST   | discovery      | Starts asynchronous discovery process for a binding and returns the timeout in seconds of the discovery operation. | scan          | 200 - OK<br>content: text/plain<br>schema: type: integer<br>format: int32<br>security: oauth2 |
-
-### events
-
-| Endpoint                  | HTTP Method | Tags        | Summary                                                     | operationId                      | Parameters                |  Responses               |
-|--------------------------|-------------|-------------|-------------------------------------------------------------|----------------------------------|---------------------------|-------------------------|
-| /events                  | GET         | "events"    | Get all events.                                             | "getEvents"                      | | 200: "OK"               |
-|                          |             |             |                                                             |                                  | 400: "Topic is empty or contains invalid characters" |
-| /events/states           | GET         | "events"    | Initiates a new item state tracker connection             | "initNewStateTacker"             | | 200: "OK"               |
-| /events/states/{connectionId} | POST    | "events"    | Changes the list of items a SSE connection will receive state updates to. | "updateItemListForStateUpdates" | name: "connectionId"      | 200: "OK"                |
-|                          |             |             |                                                             |                                  | in: "path"                | 404: "Unknown connectionId" |
-
-
-### habpanel
-
-| Endpoint                                | Method | Tags      | Summary                        | Operation ID         | Parameters                                                                                              | Responses                                                                                                             |
-| --------------------------------------- | ------ | --------- | ------------------------------ | -------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| /habpanel/gallery/{galleryName}/widgets | GET    | habpanel  | Gets the list of widget gallery items. | getGalleryWidgetList | 0: name: "galleryName"<br>   in: "path"<br>   description: "gallery name e.g. 'community'"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/GalleryWidgetsListItem"<br>404 - Unknown gallery |
-| /habpanel/gallery/{galleryName}/widgets/{id} | GET    | habpanel  | Gets the details about a widget gallery item. | getGalleryWidgetsItem | 0: name: "galleryName"<br>   in: "path"<br>   description: "gallery name e.g. 'community'"<br>   required: true<br>   schema: type: "string"<br> 1: name: "id"<br>   in: "path"<br>   description: "id within the gallery"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/GalleryItem"<br>404 - Unknown gallery or gallery item not found |
-
-
-### iconsets
-
-| Endpoint    | Method | Tags      | Summary           | Operation ID | Parameters                                                      | Responses                                                     |
-| ----------- | ------ | --------- | ----------------- | ------------ | --------------------------------------------------------------- | ------------------------------------------------------------ |
-| /iconsets   | GET    | iconsets  | Gets all icon sets | getIconSets  | 0: name: "Accept-Language"<br>   in: "header"<br>   description: "language"<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/IconSet" |
-
-
-### inbox
-
-| Endpoint                | Method | Tags   | Summary                                                           | Operation ID          | Parameters                                                                                         | Request Body                                              | Responses                                                                                                          | Security            |
-| ----------------------- | ------ | ------ | ----------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| /inbox/{thingUID}/approve | POST   | inbox  | Approves the discovery result by adding the thing to the registry. | approveInboxItemById  | Accept-Language: header<br>thingUID: path (required)<br>newThingId: query (description: new thing ID) | content: text/plain<br>schema: type: string              | 200 - OK<br>400 - Invalid new thing ID<br>404 - Thing unable to be approved<br>409 - No binding found that supports this thing | oauth2: admin        |
-| /inbox/{thingUID}  | DELETE | inbox  | Removes the discovery result from the inbox. | removeItemFromInbox | thingUID: path (required)                  | 200 - OK<br>404 - Discovery result not found in the inbox | oauth2: admin |
-| /inbox                      | GET    | inbox  | Get all discovered things.       | getDiscoveredInboxItems | 200 - OK<br>content: application/json<br>schema: array items: $ref: "#/components/schemas/DiscoveryResultDTO" | oauth2: admin |
-| /inbox/{thingUID}/ignore    | POST   | inbox  | Flags a discovery result as ignored.      | flagInboxItemAsIgnored     | 200 - OK              | oauth2: admin |
-| /inbox/{thingUID}/unignore        | POST   | inbox  | Removes ignore flag from a discovery result. | removeIgnoreFlagOnInboxItem | 200 - OK              | oauth2: admin |
-
-### items
-
-| Endpoint                           | HTTP Method | Tags     | Summary                                    | operationId            | Parameters                               | Request Body   | Responses                                                          | Security          |
-|-----------------------------------|-------------|----------|--------------------------------------------|------------------------|------------------------------------------|----------------|-------------------------------------------------------------------|-------------------|
-| /items/{itemName}/members/{memberItemName} | PUT         | "items"  | "Adds a new member to a group item."       | "addMemberToGroupItem" | name: "itemName"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
-|                                   |             |          |                                            |                        | in: "path"                             |                | 404: "Item or member item not found or item is not of type group item." |                   |
-|                                   |             |          |                                            |                        | description: "item name"               |                | 405: "Member item is not editable."                              |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "memberItemName"                 |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "member item name"        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-| /items/{itemname}/metadata/{namespace} | PUT         | "items"  | "Adds metadata to an item."               | "addMetadataToItem"    | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
-|                                   |             |          |                                            |                        | in: "path"                             |                | 201: "Created"                                                     |                   |
-|                                   |             |          |                                            |                        | description: "item name"               |                | 400: "Metadata value empty."                                       |                   |
-|                                   |             |          |                                            |                        | required: true                        |                | 404: "Item not found."                                             |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                | 405: "Metadata not editable."                                      |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "namespace"                     |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "namespace"              |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-| /items/{itemname}/tags/{tag}       | PUT         | "items"  | "Adds a tag to an item."                   | "addTagToItem"         | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
-|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item name"               |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found."                                             |                   |
-|                                   |             |          |                                            |                        |                                      |                | 405: "Item not editable."                                          |                   |
-| /items/{itemname}/tags/{tag}       | DELETE      | "items"  | "Removes a tag from an item."              | "removeTagFromItem"    | name: "itemname"                       |                | 200: "OK"                                                          | oauth2: "admin"   |
-|                                   |             |          |                                            |                        | in: "path"                             |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item name"               |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found."                                             |                   |
-|                                   |             |          |                                            |                        |                                      |                | 405: "Item not editable."                                          |                   |
-| /items/{itemname}                 | GET         | "items"  | "Gets a single item."                      | "getItemByName"        | name: "Accept-Language"                |                | 200: "OK"                                                          |                   |
-|                                   |             |          |                                            |                        | description: "language"                |                | 404: "Item not found"                                              |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "metadata"                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "recursive"                     |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "get member items if the item is a group item" |         |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "boolean"              | default: true                  |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                | 200: "OK"                                                          |                   |
-|                                   |             |          |                                            |                        | content: application/json             | schema: {...}                  |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | 404: "Item not found."               |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | 405: "Item not editable."            |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | oauth2:                               |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        | 0: "admin"                           |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-| /items                             | GET         | "items"  | "Get all available items."                 | "getItems"             | name: "Accept-Language"                |                | 200: "OK"                                                          |                   |
-|                                   |             |          |                                            |                        | description: "language"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "type"                          |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item type filter"       |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "tags"                          |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item tag filter"        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "metadata"                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "metadata selector - a comma separated list or a regular expression (suppressed if no value given)" | |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "recursive"                     |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "get member items recursively" |                       |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "boolean"              | default: false                 |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "fields"                        |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "limit output to the given fields (comma separated)" |       |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | 200: "OK"                            | content: application/json       | schema: {...}                  |                                      |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-| /items                             | PUT         | "items"  | "Adds a list of items to the registry or updates the existing items." |         | name: "Accept-Language"                |                | 200: "OK"                                                          | oauth2: "admin"   |
-|                                   |             |          |                                            |                        | description: "language"                |                | 400: "Payload is invalid."                                         |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | 200: "OK"                            | content: */*                    | schema: {...}                  |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | 405: "Item not editable."            |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-|                                   |             |          |                                            |                        | oauth2:                               |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        | 0: "admin"                           |                                      |                                                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                                                   |                   |
-| /items/{itemname}/state           | GET         | "items"  | "Gets the state of an item."               | "getItemState_1"       | name: "itemname"                       |                | 200: "OK"                                                          |                   |
-|                                   |             |          |                                            |                        | in: "path"                             |                | content: text/plain                 |                   |
-|                                   |             |          |                                            |                        | description: "item name"               |                | schema: {...}                      |                   |
-|                                   |             |          |                                            |                        | required: true                        |                |                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found"              |                   |
-| /items/{itemname}/state           | PUT         | "items"  | "Updates the state of an item."            | "updateItemState"     | name: "Accept-Language"                |                | 202: "Accepted"                   |                   |
-|                                   |             |          |                                            |                        | in: "header"                           |                | 400: "Item state null"           |                   |
-|                                   |             |          |                                            |                        | description: "language"                |                | 404: "Item not found"              |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
-|                                   |             |          |                                            |                        | name: "itemname"                      |                |                                   |                   |
-|                                   |             |          |                                            |                        | description: "item name"               | required: true                 |                                   |                   |
-|                                   |             |          |                                            |                        | schema: type: "string"                |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                |                                   |                   |
-|                                   |             |          |                                            |                        |                                      |                | 404: "Item not found"              |                   |
-| /items/{itemName}/semantic/{semanticClass} | GET     | "items"  | "Gets the item which defines the requested semantics of an item." | "getSemanticItem" | name: "Accept-Language"                |                | 200: "OK"                      |               |
-|                                   |             |          |                                                |                    | in: "header"                           |                | 404: "Item not found"          |               |
-|                                   |             |          |                                                |                    | description: "language"                |                |                               |               |
-|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
-|                                   |             |          |                                                |                    |                                      |                |                               |               |
-|                                   |             |          |                                                |                    | name: "itemName"                      |                |                               |               |
-|                                   |             |          |                                                |                    | description: "item name"               | required: true                 |                               |               |
-|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
-|                                   |             |          |                                                |                    |                                      |                |                               |               |
-|                                   |             |          |                                                |                    | name: "semanticClass"                  |                |                               |               |
-|                                   |             |          |                                                |                    | description: "semantic class"        | required: true                 |                               |               |
-|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
-| /items/metadata/purge             | POST        | "items"  | "Remove unused/orphaned metadata."            | "purgeDatabase"    |                                      |                | 200: "OK"                      | oauth2:        |
-|                                   |             |          |                                                |                    |                                      |                |                               | 0: "admin"    |
-
-### links
-
-| Endpoint                          | HTTP Method | Tags     | Summary                                        | operationId        | Parameters                               | Request Body   | Responses                      | Security      |
-|-----------------------------------|-------------|----------|------------------------------------------------|--------------------|------------------------------------------|----------------|-------------------------------|---------------|
-| /links                            | GET         | "links"  | "Gets all available links."                  | "getItemLinks"     | name: "channelUID"                     |                | 200: "OK"                      | oauth2:        |
-|                                   |             |          |                                                |                    | in: "query"                          |                |                               | 0: "admin"    |
-|                                   |             |          |                                                |                    | description: "filter by channel UID" |                |                               |               |
-|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
-|                                   |             |          |                                                |                    |                                      |                |                               |               |
-|                                   |             |          |                                                |                    | name: "itemName"                     |                |                               |               |
-|                                   |             |          |                                                |                    | description: "filter by item name"   |                |                               |               |
-|                                   |             |          |                                                |                    | schema: type: "string"                |                |                               |               |
-|                                   |             |          |                                                |                    |                                      |                |                               |               |
-|                                   |             |          |                                                |                    |                                      |                | 200: "OK"                      |               |
-|                                   |             |          |                                                |                    | content: application/json            | schema: {...}                  |                               |               |
-|                                   |             |          |                                                |                    |                                      |                |                               |               |
-|                                   |             |          |                                                |                    | oauth2:                               |                                |                               |               |
-|                                   |             |          |                                                |                    | 0: "admin"                           |                                |                               |               |
-| /links/{itemName}/{channelUID}   | GET                                           |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-|                                  |                                             |                                |
-| /links/{itemName}/{channelUID}   | GET         | "links"  | "Retrieves an individual link."              | "getItemLink"          | name: "itemName"                     |                                    | 200: "OK"                          | oauth2: 0: "admin" |
-|                                  |             |          |                                               |                        | in: "path"                           |                                    | 404: "Content does not match the path" |                   |
-|                                  |             |          |                                               |                        | description: "item name"             |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | name: "channelUID"                  |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | description: "channel UID"          |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-| /links/{itemName}/{channelUID}    | PUT         | "links"  | "Links an item to a channel."                | "linkItemToChannel" | name: "itemName"                     |                | 200: "OK"                      | oauth2: 0: "admin" |
-|                                   |             |          |                                               |                    | in: "path"                           |                | 400: "Content does not match the path" |               |
-|                                   |             |          |                                               |                    | description: "item name"             |                | 405: "Link is not editable"    |               |
-|                                   |             |          |                                               |                    | required: true                      |                |                               |               |
-|                                   |             |          |                                               |                    | schema: type: "string"              |                |                               |               |
-|                                   |             |          |                                               |                    |                                      |                |                               |               |
-|                                   |             |          |                                               |                    | name: "channelUID"                  |                |                               |               |
-|                                   |             |          |                                               |                    | description: "channel UID"          |                |                               |               |
-|                                   |             |          |                                               |                    | required: true                      |                |                               |               |
-|                                   |             |          |                                               |                    | schema: type: "string"              |                |                               |               |
-| /links/{itemName}/{channelUID}    | DELETE      | "links"  | "Unlinks an item from a channel."           | "unlinkItemFromChannel" | name: "itemName"                     |                                    | 200: "OK"                          | oauth2: 0: "admin" |
-|                                  |             |          |                                               |                        | in: "path"                           |                                    | 404: "Link not found."            |                   |
-|                                  |             |          |                                               |                        | description: "itemName"             |                                    | 405: "Link not editable."         |                   |
-|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | name: "channelUID"                  |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | description: "channelUID"            |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | required: true                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        | schema: type: "string"              |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-|                                  |             |          |                                               |                        |                                      |                                    |                                   |                   |
-| /links/purge   | POST        | "links" | "Remove unused/orphaned links."     | "purgeDatabase_1" |                     |                    | 200: "OK"         | oauth2: 0: "admin" |
-| /links/{object}             | DELETE      | "links" | "Delete all links that refer to an item or thing." | "removeAllLinksForObject"  |                                      |              | 200: "OK"   | oauth2: 0: "admin" |
-
-### logging
-
-| Endpoint              | Method | Tags     | Summary                            | Operation ID | Parameters                                                                                                         | Responses                                                     |
-| --------------------- | ------ | -------- | ---------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
-| /logging/{loggerName} | GET    | logging  | Get a single logger.               | getLogger    | - name: loggerName<br>  in: path<br>  description: logger name<br>  required: true<br>  schema: {type: "string"} | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/LoggerInfo"<br>security: 0: oauth2: 0: "admin" |
-| /logging/{loggerName} | PUT    | logging  | Modify or add logger               | putLogger    | - name: loggerName<br>  in: path<br>  description: logger name<br>  required: true<br>  schema: {type: "string"} | 200 - OK<br>400 - Payload is invalid.<br>security: 0: oauth2: 0: "admin" |
-| /logging/{loggerName} | DELETE | logging  | Remove a single logger.            | removeLogger | - name: loggerName<br>  in: path<br>  description: logger name<br>  required: true<br>  schema: {type: "string"} | 200 - OK<br>security: 0: oauth2: 0: "admin"                   |
-| /logging    | GET    | logging  | Get all loggers | getLogger_1   | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/LoggerBean"<br>security: 0: oauth2: 0: "admin" |
-
-
-### module-types
-
-| Endpoint              | Method | Tags          | Summary                            | Operation ID   | Parameters                                                                                                                                                       | Responses                                                                                                            |
-| --------------------- | ------ | ------------- | ---------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| /module-types         | GET    | module-types  | Get all available module types.    | getModuleTypes | 0: name: "Accept-Language"<br>   in: "header"<br>   description: "language"<br>   schema: type: "string"<br> 1: name: "tags"<br>   in: "query"<br>   description: "tags for filtering"<br>   schema: type: "string"<br> 2: name: "type"<br>   in: "query"<br>   description: "filtering by action, condition or trigger"<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/ModuleTypeDTO" |
-| /module-types/{moduleTypeUID}     | GET    | module-types  | Gets a module type corresponding to the given UID. | getModuleTypeById  | 0: name: "Accept-Language"<br>   in: "header"<br>   description: "language"<br>   schema: type: "string"<br> 1: name: "moduleTypeUID"<br>   in: "path"<br>   description: "moduleTypeUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: {…}<br>404 - Module Type corresponding to the given UID does not found. |
-
-
-### persistence
-
-| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
-|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
-| /persistence/items/{itemname}         | GET         | "persistence" | "Gets item persistence data from the persistence service." | "getItemDataFromPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            |                       |
-|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Id of the persistence service. If not provided the default service will be used" | required: false                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "The item name"                  | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "starttime"                             | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Start time of the data to return. Will default to 1 day before endtime. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "endtime"                               | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "End time of the data to return. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "page"                                  | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Page number of data to return. This parameter will enable paging." | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "integer"                       | format: "int32"                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "pagelength"                            | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "The length of each page."       | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "integer"                       | format: "int32"                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "boundary"                              | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Gets one value before and after the requested period." | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "boolean"                       |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
-|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
-| /persistence/items/{itemname}         | PUT         | "persistence" | "Stores item persistence data into the persistence service." | "storeItemDataInPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Id of the persistence service. If not provided the default service will be used" | required: false                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "The item name."                 | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "time"                                  | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Time of the data to be stored. Will default to current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "state"                                 | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "The state to store."            | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
-| /persistence/items/{itemname}         | DELETE      | "persistence" | "Deletes item persistence data from a specific persistence service in a given time range." | "deleteItemFromPersistenceService"   | name: "serviceId"                              |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                     |             |               |                                                         |                                        | in: "query"                                    |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Id of the persistence service." | required: true                 |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "itemname"                              |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "The item name."                 | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "starttime"                             | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "Start of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | name: "endtime"                               | in: "query"                    |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "End of the time range to be deleted. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]" | required: true                |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
-|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 400: "Invalid filter parameters"     |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 404: "Unknown persistence service" |                       |
-| /persistence                         | GET         | "persistence" | "Gets a list of persistence services."                | "getPersistenceServices"              | name: "Accept-Language"                      |                                | 200: "OK"                            |                       |
-|                                     |             |               |                                                         |                                        | in: "header"                                  |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        | description: "language"                      | required: false               |                                    |                       |
-|                                     |             |               |                                                         |                                        | schema: type: "string"                        |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                | 200: "OK"                            |                       |
-|                                     |             |               |                                                         |                                        | content: application/json                     | schema: {...}                  |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-|                                     |             |               |                                                         |                                        |                                      |                                |                                    |                       |
-
-### profile-types
-
-| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
-|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
-| /profile-types                        | GET         | "profile-types" | "Gets all available profile types."                    | "getProfileTypes"                     | name: "Accept-Language"                      |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | description: "language"                    | required: false                |                                      |                       |
-|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | name: "channelTypeUID"                     | in: "query"                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | description: "channel type filter"         | required: false                |                                      |                       |
-|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | name: "itemType"                           | in: "query"                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | description: "item type filter"            | required: false                |                                      |                       |
-|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        |                                          |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        |                                          |                                |                                      |                       |
-
-### rules
-
-| Endpoint    | Method | Tags       | Summary                                            | Operation ID | Parameters                                                                                                                                                           | Responses                                                                                                                               |
-| ----------- | ------ | ---------- | -------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| /rules      | GET    | rules      | Get available rules, optionally filtered by tags and/or prefix. | getRules     | 0: name: "prefix"<br>   in: "query"<br>   schema: type: "string"<br> 1: name: "tags"<br>   in: "query"<br>   schema: type: "array"<br>   items: type: "string"<br> 2: name: "summary"<br>   in: "query"<br>   description: "summary fields only"<br>   schema: type: "boolean" | 200 - OK<br>content: application/json<br>schema: {…}<br>security: 0: oauth2: 0: "admin"<br>post<br>tags: 0: "rules"<br>summary: "Creates a rule."<br>operationId: "createRule"<br>requestBody: description: "rule data"<br>content: application/json<br>schema: $ref: "#/components/schemas/RuleDTO"<br>required: true<br>201 - Created<br>headers: Location: description: "Newly created Rule"<br>style: "simple"<br>400 - Creation of the rule is refused. Missing required parameter.<br>409 - Creation of the rule is refused. Rule with the same UID already exists.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/enable | POST   | rules   | Sets the rule enabled status.          | enableRule   | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-|                         |        |         |                                      |              | 1: name: "enable"<br>   in: "body"<br>   description: "enable"<br>   required: true<br>   schema: type: "string"  |
-| /rules/{ruleUID}/actions | GET    | rules   | Gets the rule actions | getRuleActions  | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"  | 200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-|                         |        |         |                       |                 |                                                                                                       |                                                                                                      |
-| /rules/{ruleUID}   | GET    | rules | Gets the rule corresponding to the given UID      | getRuleById  | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: {…}<br>404 - Rule not found<br>security: 0: oauth2: 0: "admin" |
-|                    | PUT    | rules | Updates an existing rule corresponding to the given UID | updateRule   | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"<br>requestBody: description: "rule data"<br>content: application/json<br>schema: $ref: "#/components/schemas/RuleDTO"<br>required: true | 200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-|                    | DELETE | rules | Removes an existing rule corresponding to the given UID | deleteRule   | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/conditions | GET    | rules | Gets the rule conditions | getRuleConditions | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: {…}<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/config  | GET    | rules | Gets the rule configuration   | getRuleConfiguration | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: {…}<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/config  | PUT    | rules | Sets the rule configuration   | updateRuleConfiguration | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 1: name: "config"<br>   in: "body"<br>   description: "config"<br>   required: true<br>   content: application/json<br>schema: type: "object"<br>additionalProperties: {…}<br>200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/{moduleCategory}/{id}        | GET    | rules | Gets the rule's module corresponding to the given Category and ID. | getRuleModuleById  | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"<br>1: name: "moduleCategory"<br>   in: "path"<br>   description: "moduleCategory"<br>   required: true<br>   schema: type: "string"<br>2: name: "id"<br>   in: "path"<br>   description: "id"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/ModuleDTO"<br>404 - Rule corresponding to the given UID does not found or does not have a module with such Category and ID.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/{moduleCategory}/{id}/config        | GET    | rules | Gets the module's configuration.  | getRuleModuleConfig | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"<br>1: name: "moduleCategory"<br>   in: "path"<br>   description: "moduleCategory"<br>   required: true<br>   schema: type: "string"<br>2: name: "id"<br>   in: "path"<br>   description: "id"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "string"<br>404 - Rule corresponding to the given UID does not found or does not have a module with such Category and ID.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/{moduleCategory}/{id}/config/{param}         | GET    | rules | Gets the module's configuration parameter. | getRuleModuleConfigParameter | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"<br>1: name: "moduleCategory"<br>   in: "path"<br>   description: "moduleCategory"<br>   required: true<br>   schema: type: "string"<br>2: name: "id"<br>   in: "path"<br>   description: "id"<br>   required: true<br>   schema: type: "string"<br>3: name: "param"<br>   in: "path"<br>   description: "param"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: text/plain<br>schema: type: "string"<br>404 - Rule corresponding to the given UID does not found or does not have a module with such Category and ID.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/{moduleCategory}/{id}/config/{param}         | PUT    | rules | Sets the module's configuration parameter value. | setRuleModuleConfigParameter | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string"<br>1: name: "moduleCategory"<br>   in: "path"<br>   description: "moduleCategory"<br>   required: true<br>   schema: type: "string"<br>2: name: "id"<br>   in: "path"<br>   description: "id"<br>   required: true<br>   schema: type: "string"<br>3: name: "param"<br>   in: "path"<br>   description: "param"<br>   required: true<br>   schema: type: "string"<br>requestBody: description: "value"<br>content: text/plain<br>schema: type: "string"<br>required: true | 200 - OK<br>404 - Rule corresponding to the given UID does not found or does not have a module with such Category and ID.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/triggers                     | GET    | rules | Gets the rule triggers. | getRuleTriggers   | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/TriggerDTO"<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/{ruleUID}/runnow     | POST   | rules | Executes actions of the rule. | runRuleNow_1   | 0: name: "ruleUID"<br>   in: "path"<br>   description: "ruleUID"<br>   required: true<br>   schema: type: "string" | description: "the context for running this rule"<br>content: application/json<br>schema: type: "object"<br>additionalProperties: type: "object" | 200 - OK<br>404 - Rule corresponding to the given UID does not found.<br>security: 0: oauth2: 0: "admin" |
-| /rules/schedule/simulations         | GET    | rules | Simulates the executions of rules filtered by tag 'Schedule' within the given times. | getScheduleRuleSimulations | 0: name: "from"<br>   in: "query"<br>   description: "Start time of the simulated rule executions. Will default to the current time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]"<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/RuleExecution"<br>400 - The max. simulation duration of 180 days is exceeded.<br>security: 0: oauth2: 0: "admin" |
-|                                     |        |       |                                                   |                          | 1: name: "until"<br>   in: "query"<br>   description: "End time of the simulated rule executions. Will default to 30 days after the start time. Must be less than 180 days after the given start time. [yyyy-MM-dd'T'HH:mm:ss.SSSZ]"<br>   schema: type: "string" |
-
-### services
-
-| Endpoint                             | HTTP Method | Tags          | Summary                                                 | operationId                            | Parameters                                       | Request Body                   | Responses                            | Security              |
-|---------------------------------------|-------------|---------------|---------------------------------------------------------|----------------------------------------|--------------------------------------------------|-------------------------------|--------------------------------------|-----------------------|
-| /services/{serviceId}/config          | GET         | "services"    | "Get service configuration for given service ID."       | "getServiceConfig"                     | name: "serviceId"                           |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "path"                                  |                                | 500: "Configuration can not be read due to internal error" |                       |
-|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
-| /services/{serviceId}/config                           | PUT         | "services"    | "Updates a service configuration for given service ID and returns the old configuration." | "updateServiceConfig"                 | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "header"                                |                                | 204: "No old configuration"        |                       |
-|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  | 500: "Configuration can not be updated due to internal error" |                       |
-|                                       |             |               |                                                         |                                        | description: "service ID"                   |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | name: "requestBody"                         | in: "body"                                  |                                      |                       |
-|                                       |             |               |                                                         |                                        | content: application/json                   | schema: type: "object"          |                                      |                       |
-|                                       |             |               |                                                         |                                        |                additionalProperties: {...}  |                                |                                      |                       |
-| /services/{serviceId}/config                           | DELETE      | "services"    | "Deletes a service configuration for given service ID and returns the old configuration." | "deleteServiceConfig"                 | name: "serviceId"                           |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "path"                                  |                                | 204: "No old configuration"        |                       |
-|                                       |             |               |                                                         |                                        | description: "service ID"                   |                                | 500: "Configuration can not be deleted due to internal error" |                       |
-|                                       |             |               |                                                         |                                        | schema: type: "string"                      |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        |                                             |                                |                                      |                       |
-| /services                            | GET         | "services"    | "Get all configurable services."                       | "getServices"                          | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
-| /services/{serviceId}                | GET         | "services"    | "Get configurable service for given service ID."       | "getServicesById"                     | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "header"                                |                                | 404: "Not found"                   |                       |
-|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  |                                      |                       |
-| /services/{serviceId}/contexts       | GET         | "services"    | "Get existing multiple context service configurations for the given factory PID." | "getServiceContext"                | name: "Accept-Language"                     |                                | 200: "OK"                            | oauth2: 0: "admin"    |
-|                                       |             |               |                                                         |                                        | in: "header"                                |                                |                                      |                       |
-|                                       |             |               |                                                         |                                        | name: "serviceId"                           | in: "path"                                  |                                      |                       |
-
-### sitemaps
-
-| Endpoint                         | HTTP Method | Tags      | Summary                                          | operationId                     | Parameters                     | Responses                                            |
-|---------------------------------|-------------|-----------|--------------------------------------------------|---------------------------------|--------------------------------|-----------------------------------------------------|
-| /sitemaps/events/subscribe      | POST        | "sitemaps" | "Creates a sitemap event subscription."         | "createSitemapEventSubscription" |                                | 201: "Created"                                       |
-|                                 |             |           |                                                  |                                 |                                |     Subscription created.                           |
-|                                 |             |           |                                                  |                                 |                                | 503:                                               |
-|                                 |             |           |                                                  |                                 |                                |     Subscriptions limit reached.                     |
-| /sitemaps/{sitemapname}/{pageid} | GET         | "sitemaps" | "Polls the data for a sitemap."                | "pollDataForSitemap"            | Accept-Language                | 200: "OK"                                           |
-|                                 |             |           |                                                  |                                 | sitemapname                     | 400:                                                |
-|                                 |             |           |                                                  |                                 | pageid                          |     Invalid subscription id has been provided.     |
-|                                 |             |           |                                                  |                                 | subscriptionid                  | 404:                                                |
-|                                 |             |           |                                                  |                                 | includeHidden                   |     Sitemap with requested name does not exist or   |
-|                                 |             |           |                                                  |                                 |                                |     page does not exist, or page refers to a      |
-|                                 |             |           |                                                  |                                 |                                |     non-linkable widget.                         |
-| /sitemaps/{sitemapname}          | GET         | "sitemaps" | "Get sitemap by name."                   | "getSitemapByName"      | Accept-Language                | 200: "OK"                                     |
-|                                 |             |           |                                           |                         | sitemapname                     |     Content - application/json                 |
-|                                 |             |           |                                           |                         | type                            | Schema                                        |
-|                                 |             |           |                                           |                         | jsoncallback                    |     $ref - "#/components/schemas/SitemapDTO"  |
-|                                 |             |           |                                           |                         | includeHidden                   |                                               |
-| /sitemaps/events/{subscriptionid}    | GET         | "sitemaps"  | "Get sitemap events."                     | "getSitemapEvents"      | subscriptionid                  | 200: "OK"                                    |
-|                                     |             |             |                                           |                         | sitemap                         |     Content - application/json                |
-|                                     |             |             |                                           |                         | pageid                          | 400: "Page not linked to the subscription."   |
-|                                     |             |             |                                           |                         |                                 | 404: "Subscription not found."                |
-| /sitemaps              | GET         | "sitemaps"  | "Get all available sitemaps."         | "getSitemaps"   |                    | 200: "OK"                          |
-|                        |             |             |                                        |                 |                    | Content - application/json          |
-|                        |             |             |                                        |                 |                    | Schema - type: array                |
-|                        |             |             |                                        |                 |                    |          items: $ref: "#/components/schemas/SitemapDTO" |
-
-### systeminfo
-
-| Endpoint        | Method | Tags       | Summary                           | Operation ID          | Parameters                                  | Responses                                          |
-|-----------------|--------|------------|-----------------------------------|-----------------------|---------------------------------------------|---------------------------------------------------|
-| /systeminfo     | GET    | "systeminfo" | "Gets information about the system." | "getSystemInformation" |                                             | 200: "OK"                                         |
-|                 |        |            |                                   |                       |                                             | Content - application/json                        |
-|                 |        |            |                                   |                       |                                             | Schema - $ref "#/components/schemas/SystemInfoBean" |
-|                 |        |            |                                   |                       |                                             | Security                                        |
-|                 |        |            |                                   |                       |                                             |     oauth2: "admin"                            |
-
-### templates
-
-| Endpoint             | Method | Tags       | Summary                           | Operation ID   | Parameters                                                                                                        | Responses                                                                                                  |
-| -------------------- | ------ | ---------- | --------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| /templates           | GET    | templates  | Get all available templates.      | getTemplates   | 0: name: "Accept-Language"<br>   in: "header"<br>   description: "language"<br>   schema: type: "string"         | 200 - OK<br>content: application/json<br>schema: type: "array"<br>items: $ref: "#/components/schemas/Template" |
-| /templates/{templateUID} | GET    | templates  | Gets a template corresponding to the given UID. | getTemplateById  | 0: name: "Accept-Language"<br>   in: "header"<br>   description: "language"<br>   schema: type: "string"<br>1: name: "templateUID"<br>   in: "path"<br>   description: "templateUID"<br>   required: true<br>   schema: type: "string" | 200 - OK<br>content: application/json<br>schema: $ref: "#/components/schemas/Template"<br>404 - Template corresponding to the given UID does not found. |
-
-### things
-
-| Endpoint                        | Method | Tags     | Summary                                                                                         | Operation ID         | Parameters                                                                                        | Request Body                           | Responses                                              | Security         |
-|---------------------------------|--------|----------|-------------------------------------------------------------------------------------------------|----------------------|---------------------------------------------------------------------------------------------------|----------------------------------------|-------------------------------------------------------|------------------|
-| /things                         | GET    | "things" | "Get all available things."                                                                    | "getThings"          |                                                                                                   |                                        | 200: "OK" Content - application/json Schema - $ref...  | oauth2: "admin" |
-| /things                         | POST   | "things" | "Creates a new thing and adds it to the registry."                                              | "createThingInRegistry" | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | Request Body description: "thing data" content:... | 201: "Created" Content - */* Schema - {...}           | oauth2: "admin" |
-| /things/{thingUID}              | GET    | "things" | "Gets thing by UID."                                                                           | "getThingById"       | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thingUID" required: true schema: type: "string"         | 200: "OK" Content - application/json schema: {...}  | oauth2: "admin" |
-| /things/{thingUID}              | PUT    | "things" | "Updates a thing."                                                                             | "updateThing"        | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thingUID" required: true schema: type: "string"         | Request Body description: "thing" content: app... | 200: "OK" Content - */* schema: {...}               | oauth2: "admin" |
-| /things/{thingUID}              | DELETE | "things" | "Removes a thing from the registry. Set 'force' to __true__ if you want the thing to be removed immediately." | "removeThingById"    | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thingUID" required: true schema: type: "string"         | name: "force" in: "query" description: "force" ... | 200: "OK, was deleted." Content - application/...  | oauth2: "admin" |
-|                                 |        |          |                                                                                                 |                      |                                                                                                   |                                        | 202: "ACCEPTED for asynchronous deletion."      |                    |                      |          |                                                                                                 |                      |                                                                                                   |                                        | 404: "Thing not found."                |                    |                      |          |                                                                                                 |                      |                                                                                                   |                                        | 409: "Thing could not be deleted because it's not editable." | |                    |
-| /things/{thingUID}/config/status    | GET    | "things" | "Gets thing config status."               | "getThingConfigStatus"  | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string"         | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-| /things/{thingUID}/firmware/status  | GET    | "things" | "Gets thing's firmware status."           | "getThingFirmwareStatus"| name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string"         | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-|                                     |        |          |                                           |                         |                                                                                                   |              | 204: "No firmware status provided by this Thing." |                  |
-| /things/{thingUID}/firmwares      | GET    | "things" | "Get all available firmwares for provided thing UID"   | "getAvailableFirmwaresForThing"  | name: "thingUID" in: "path" description: "thingUID" required: true schema: type: "string"                      |                | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-|                                   |        |          |                                                        |                                   | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string"              |                | 204: "No firmwares found."                 |                  |
-| /things/{thingUID}/status         | GET    | "things" | "Gets thing status." | "getThingStatus"| name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string"                |              | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-|                                   |        |          |                      |                 | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string"                            |              | 404: "Thing not found."                   |                  |
-| /things/{thingUID}/enable         | PUT    | "things" | "Sets the thing enabled status." | "enableThing"   | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string"                 | description: "enabled" content: text/plain schema: type: "string" | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-|                                   |        |          |                           |                 | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string"                             |              | 404: "Thing not found."                   |                  |
-| /things/{thingUID}/config         | PUT    | "things" | "Updates thing's configuration."    | "updateThingConfig" | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string"               | description: "configuration parameters" content: application/json schema: type: "object" additionalProperties: {...} | 200: "OK" Content - application/json schema: {...} | oauth2: "admin" |
-|                                   |        |          |                                     |                   | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string"                           |                                   | 400: "Configuration of the thing is not valid." |                  |
-|                                   |        |          |                                     |                   |                                   |                                   | 404: "Thing not found"                     |                  |
-|                                   |        |          |                                     |                   |                                   |                                   | 409: "Thing could not be updated as it is not editable." |               |
-| /things/{thingUID}/firmware/{firmwareVersion} | PUT | "things" | "Update thing firmware." | "updateThingFirmware" | name: "Accept-Language" in: "header" description: "language" required: false schema: type: "string" | name: "thingUID" in: "path" description: "thing" required: true schema: type: "string" | name: "firmwareVersion" in: "path" description: "version" required: true schema: type: "string" | 200: "OK" | 400: "Firmware update preconditions not satisfied." | 404: "Thing not found." | oauth2: "admin" |
-
-### thing-types
-
-| Endpoint         | Method | Tags            | Summary                                                        | Operation ID      | Parameters                                                                                                | Responses                         |
-| ---------------- | ------ | --------------- | -------------------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| /thing-types     | GET    | "thing-types"   | "Gets all available thing types without config description, channels and properties." | "getThingTypes"   | name: "Accept-Language" in: "header" description: "language" schema: type: "string"                   | 200: "OK" Content: application/json Schema: uniqueItems: true type: "array" items: $ref: "#/components/schemas/StrippedThingTypeDTO" |
-|                  |        |                 |                                                                |                  | name: "bindingId" in: "query" description: "filter by binding Id" schema: type: "string"                |                                  |
-| /thing-types/{thingTypeUID} | GET      | "thing-types"      | "Gets thing type by UID."                                                    | "getThingTypeById" | name: "thingTypeUID" in: "path" description: "thingTypeUID" required: true schema: type: "string" | 200: "OK" Content: application/json Schema: {...} | 404: "Not found" No content |
-
-### transformations
-
-| Endpoint         | Method | Tags            | Summary                                        | Operation ID      | Parameters                                                                                                | Responses                         |
-| ---------------- | ------ | --------------- | ---------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| /transformations/{uid} | GET    | "transformations" | "Get a single transformation"                 | "getTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | 200: "OK" content: application/json schema: {...} | 404: "Not found" No content |
-| /transformations/{uid} | PUT    | "transformations" | "Put a single transformation"                 | "putTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | Request Body description: "transformation" content: application/json schema: $ref: "#/components/schemas/TransformationDTO" required: true | 200: "OK" 400: "Bad Request (content missing or invalid)" 405: "Transformation not editable" |
-| /transformations/{uid} | DELETE | "transformations" | "Get a single transformation"                 | "deleteTransformation" | name: "uid" in: "path" description: "Transformation UID" required: true schema: type: "string" | 200: "OK" 404: "UID not found" 405: "Transformation not editable" |
-| /transformations   | GET    | "transformations" | "Get a list of all transformations"           | "getTransformations" | - | 200: "OK" content: application/json schema: type: "array" items: $ref: "#/components/schemas/TransformationDTO" | 0: oauth2 0: "admin" |
-
-### ui
-
-| Endpoint                          | HTTP Method | Tags | Summary                                                      | Operation ID                           | Parameters                                     | Responses                                    | Security              |
-|-----------------------------------|-------------|------|--------------------------------------------------------------|----------------------------------------|-----------------------------------------------|----------------------------------------------|-----------------------|
-| /ui/components/{namespace}        | GET         | ui   | Get all registered UI components in the specified namespace. | getRegisteredUIComponentsInNamespace | - `namespace` (in path, required, type: string) <br> - `summary` (in query, type: boolean, description: summary fields only) | 200 - OK <br> Content: application/json <br> Schema: type: array, items: $ref: "#/components/schemas/RootUIComponent" | oauth2 - admin       |
-| /ui/components/{namespace}        | POST        | ui   | Add a UI component in the specified namespace.               | addUIComponentToNamespace            | - `namespace` (in path, required, type: string) <br> - Request Body: Content: application/json <br> Schema: $ref: "#/components/schemas/RootUIComponent" | 200 - OK <br> Content: application/json <br> Schema: $ref: "#/components/schemas/RootUIComponent"   | oauth2 - admin       |
-| /ui/components/{namespace}/{componentUID}        | GET         | ui   | Get a specific UI component in the specified namespace. | getUIComponentInNamespace       | - `namespace` (in path, required, type: string) <br> - `componentUID` (in path, required, type: string) | 200 - OK <br> Content: application/json <br> Schema: {…}       | oauth2 - admin       |
-| /ui/components/{namespace}/{componentUID}        | PUT         | ui   | Update a specific UI component in the specified namespace. | updateUIComponentInNamespace    | - `namespace` (in path, required, type: string) <br> - `componentUID` (in path, required, type: string) <br> Request Body: Content: application/json <br> Schema: $ref: "#/components/schemas/RootUIComponent" | 200 - OK <br> Content: application/json <br> Schema: {…}       | oauth2 - admin       |
-| /ui/components/{namespace}/{componentUID}        | DELETE      | ui   | Remove a specific UI component in the specified namespace. | removeUIComponentFromNamespace | - `namespace` (in path, required, type: string) <br> - `componentUID` (in path, required, type: string) | 200 - OK                                                        | oauth2 - admin       |
-| /ui/tiles     | GET         | ui   | Get all registered UI tiles.   | getUITiles   | 200 - OK <br> Content: application/json <br> Schema: type: "array" <br> Items: $ref: "#/components/schemas/TileDTO" |
-
-
-### uuid
-
-| Endpoint | Method | Tags  | Summary              | Operation ID | Responses                                |
-| -------- | ------ | ----- | -------------------- | ------------ | ---------------------------------------- |
-| /uuid    | GET    | uuid | A unified unique id. | getUUID      | 200 - OK<br>content: text/plain<br>schema: type: "string" |
-
-
-### voice
-
-| Endpoint              | HTTP Method | Tags   | Summary               | Operation ID    | Responses                                                                                                      |
-|-----------------------|-------------|--------|-----------------------|-----------------|----------------------------------------------------------------------------------------------------------------|
-| /voice/defaultvoice   | GET         | voice  | Gets the default voice. | getDefaultVoice | 200 - OK <br> Content: application/json <br> Schema: $ref: "#/components/schemas/VoiceDTO" <br> 404 - No default voice was found. |
-| /voice/interpreters/{id}             | GET         | voice  | Gets a single interpreter. | getVoiceInterpreterByUID  | - name: Accept-Language <br> in: header <br> description: language <br> schema: type: string <br> - name: id <br> in: path <br> description: interpreter id <br> required: true <br> schema: type: string | 200 - OK <br> Content: application/json <br> Schema: type: array <br> items: $ref: "#/components/schemas/HumanLanguageInterpreterDTO" <br> 404 - Interpreter not found |
-| /voice/interpreters                      | GET    | voice | Get the list of all interpreters.                   | getVoiceInterpreters                   | Accept-Language: header (language)             | 200 - OK<br>Content: application/json<br>Schema: {...} |
-| /voice/interpreters                      | POST   | voice | Sends a text to the default human language interpreter. | interpretTextByDefaultInterpreter    | Accept-Language: header (language)<br>text to interpret: body (text/plain) (required) | 200 - OK<br>400 - interpretation exception occurs<br>404 - No human language interpreter was found. |
-| /voice/voices  | GET    | voice | Get the list of all voices. | getVoices    | 200 - OK<br>Content: application/json<br>Schema: {type: "array", items: $ref("#/components/schemas/VoiceDTO")} |
-| /voice/interpreters/{ids}       | POST   | voice | Sends a text to a given human language interpreter(s). | interpretText   | - name: Accept-Language<br>  in: header<br>  description: language<br>  schema: {type: "string"}<br>- name: ids<br>  in: path<br>  description: comma separated list of interpreter ids<br>  required: true<br>  schema: {type: "array", items: {type: "string"}} | Request Body:<br>- description: text to interpret<br>  content: text/plain<br>  schema: {type: "string"}<br>  required: true | 200 - OK<br>Content: application/json<br>Schema: {type: "object"}<br>400 - interpretation exception occurs<br>Content: application/json<br>Schema: {type: "object"}<br>404 - No human language interpreter was found.<br>Content: application/json<br>Schema: {type: "object"} |
-| /voice/listenandanswer | POST   | voice | Executes a simple dialog sequence without keyword spotting for a given audio source. | listenAndAnswer | - name: Accept-Language<br>  in: header<br>  description: language<br>  schema: {type: "string"}<br>- name: sourceId<br>  in: query<br>  description: source ID<br>  schema: {type: "string"}<br>- name: sttId<br>  in: query<br>  description: Speech-to-Text ID<br>  schema: {type: "string"}<br>- name: ttsId<br>  in: query<br>  description: Text-to-Speech ID<br>  schema: {type: "string"}<br>- name: voiceId<br>  in: query<br>  description: voice ID<br>  schema: {type: "string"}<br>- name: hliIds<br>  in: query<br>  description: interpreter IDs<br>  schema: {type: "array", items: {type: "string"}}<br>- name: sinkId<br>  in: query<br>  description: audio sink ID<br>  schema: {type: "string"}<br>- name: listeningItem<br>  in: query<br>  description: listening item<br>  schema: {type: "string"} | 200 - OK<br>Content: application/json<br>Schema: {type: "object"}<br>400 - Services are missing or language is not supported by services or dialog processing is already started for the audio source.<br>Content: application/json<br>Schema: {type: "object"}<br>404 - One of the given ids is wrong.<br>Content: application/json<br>Schema: {type: "object"} |
-| /voice/say  | POST   | voice | Speaks a given text with a given voice through the given audio sink. | textToSpeech   | - name: voiceid<br>  in: query<br>  description: voice id<br>  schema: {type: "string"}<br>- name: sinkid<br>  in: query<br>  description: audio sink id<br>  schema: {type: "string"} | Content: text/plain<br>Schema: {type: "string"}<br>Required: true                              | 200 - OK<br>Content: application/json<br>Schema: {type: "object"} |
-| /voice/dialog/start  | POST   | voice | Start dialog processing for a given audio source.          | startDialog  | - name: Accept-Language<br>  in: header<br>  description: language<br>  schema: {type: "string"}<br>- name: sourceId<br>  in: query<br>  description: source ID<br>  schema: {type: "string"}<br>... | 200 - OK<br>400 - Services are missing or language is not supported by services or dialog processing is already started for the audio source.<br>404 - One of the given ids is wrong. |
-| /voice/dialog/stop | POST   | voice | Stop dialog processing for a given audio source. | stopDialog   | - name: sourceId<br>  in: query<br>  description: source ID<br>  schema: {type: "string"} | 200 - OK<br>400 - No dialog processing is started for the audio source.<br>404 - No audio source was found. |
+# openHAB REST Client Libraries — Overview
+
+A family of client libraries for the [openHAB REST API](https://www.openhab.org/docs/configuration/restdocs.html), available in eight languages: **Python, JavaScript, Node.js, Java, C#, C++, C, and Kotlin/Android**.
+
+All libraries share the same design goals, the same class names, and the same method names. Switching between languages requires as little cognitive effort as possible.
+
+---
+
+## Table of Contents
+
+- [Motivation](#motivation)
+- [The Cross-Language Design](#the-cross-language-design)
+- [When to Use Which Library](#when-to-use-which-library)
+- [Libraries at a Glance](#libraries-at-a-glance)
+- [Testing with openHAB Cloud or a Local Instance](#testing-with-openhab-cloud-or-a-local-instance)
+- [Python](#python)
+- [JavaScript (Browser)](#javascript-browser)
+- [Node.js](#nodejs)
+- [Java](#java)
+- [C#](#c)
+- [C++](#c-1)
+- [C](#c-2)
+- [Android / Kotlin](#android--kotlin)
+- [Test Applications on Render.com](#test-applications-on-rendercom)
+- [License](#license)
+
+---
+
+## Motivation
+
+When building projects that integrate with openHAB, developers almost always need to talk to its REST API. In practice, this means every project reimplements the same HTTP calls — constructing URLs, setting headers, handling authentication, parsing responses, and wiring up Server-Sent Events — independently and differently from every other project.
+
+As the number of openHAB-based projects grows, this creates a fragmented ecosystem. Someone who wants to contribute to a project, fork it, or build on top of it must first understand how that particular project chose to structure its REST communication. If there are a hundred projects, there are potentially a hundred different approaches.
+
+In software engineering, we strive for **reusability, interoperability, and consistency**. A shared client library solves all three:
+
+- **Reusability** — write the REST integration once, use it everywhere.
+- **Interoperability** — any project using the library speaks the same language as every other project using the library.
+- **Consistency** — contributors who know the library can immediately be productive in any project that uses it, regardless of which one they pick up first.
+
+The libraries in this family were created precisely to establish that shared foundation. Whether you are writing a Python automation script, a Java desktop tool, a Node.js home dashboard, a C-based embedded controller, or an Android app, you call `items.getItems()`, `items.sendCommand("MySwitch", "ON")`, and `itemEvents.itemStateChangedEvent("MySwitch")` — the same names everywhere.
+
+---
+
+## The Cross-Language Design
+
+Every library in this family follows the same structure:
+
+### Identical class names
+
+| Concept | Class name (all languages) |
+|---|---|
+| HTTP client | `OpenHABClient` |
+| Items endpoint | `Items` |
+| Things endpoint | `Things` |
+| Rules endpoint | `Rules` |
+| Persistence | `Persistence` |
+| Voice | `Voice` |
+| Item events (SSE) | `ItemEvents` |
+| Thing events (SSE) | `ThingEvents` |
+| … | … (all 27+ classes identical) |
+
+### Identical method names
+
+```python
+# Python
+items.getItems()
+items.sendCommand("MySwitch", "ON")
+items.getItemState("MySwitch")
+itemEvents.ItemStateChangedEvent("MySwitch")
+```
+
+```javascript
+// JavaScript / Node.js
+await items.getItems()
+await items.sendCommand("MySwitch", "ON")
+await items.getItemState("MySwitch")
+itemEvents.ItemStateChangedEvent("MySwitch")
+```
+
+```java
+// Java
+items.getItems()
+items.sendCommand("MySwitch", "ON")
+items.getItemState("MySwitch")
+itemEvents.ItemStateChangedEvent("MySwitch")
+```
+
+```csharp
+// C#
+items.GetItems()
+items.SendCommand("MySwitch", "ON")
+items.GetItemState("MySwitch")
+itemEvents.ItemStateChangedEvent("MySwitch")
+```
+
+```cpp
+// C++
+items.getItems()
+items.sendCommand("MySwitch", "ON")
+items.getItemState("MySwitch")
+itemEvents.ItemStateChangedEvent("MySwitch")
+```
+
+```c
+// C
+openhab_items_getItems(c, NULL, NULL, NULL, 0, NULL, 0, NULL)
+openhab_items_sendCommand(c, "MySwitch", "ON")
+openhab_items_getItemState(c, "MySwitch")
+openhab_events_getItemStateChangedEvent(c, "MySwitch", callback, NULL)
+```
+
+```kotlin
+// Android / Kotlin
+openHAB.items.getItems()
+openHAB.items.sendCommand("MySwitch", "ON")
+openHAB.items.getItemState("MySwitch")
+openHAB.itemEvents.itemStateChangedEvent("MySwitch")
+```
+
+### Identical authentication model
+
+All libraries support the same two authentication methods:
+
+```
+# Basic Auth
+OpenHABClient(url, username, password)
+
+# Token Auth
+OpenHABClient(url, token="oh.openhab.xxxx")
+```
+
+### Identical SSE model
+
+All libraries expose Server-Sent Events for real-time updates. The transport differs by language (callback, iterator, Flow, etc.) but the event class names and topic names are always the same: `ItemEvents`, `ThingEvents`, `InboxEvents`, `LinkEvents`, `ChannelEvents`.
+
+---
+
+## When to Use Which Library
+
+The libraries are not competing alternatives — they are designed to be used together, each in the environment where it naturally belongs.
+
+| Language | Primary environments | Example use cases |
+|---|---|---|
+| **Python** | Automation scripts, robotics, AI/ML, servers | ROS 1/2 nodes, CrewAI agents, openHAB rule scripts, CLI tools, data analysis pipelines |
+| **JavaScript** | Browser-based UIs, dashboards | HABPanel-style dashboards, custom openHAB web UIs, in-browser automation tools |
+| **Node.js** | Server-side JS, display systems | [MagicMirror²](https://magicmirror.builders/) modules, Express APIs, Electron desktop apps, Home automation servers |
+| **Java** | Desktop apps, Spring backends, Android (non-Kotlin) | Spring Boot microservices, JavaFX GUIs, openHAB rule addons, Android apps (Java) |
+| **C#** | .NET applications, game engines, XR | **Unity** (VR/AR smart home experiences), WPF/WinForms desktop apps, ASP.NET Web APIs, [MRTK](https://learn.microsoft.com/en-us/windows/mixed-reality/mrtk-unity/) HoloLens apps |
+| **C++** | Embedded Linux, performance-critical systems | Raspberry Pi daemons, robot middleware (ROS 2 nodes), industrial controllers, Qt GUIs |
+| **C** | Bare-metal, deeply embedded, firmware | Microcontrollers with libcurl, resource-constrained systems, firmware daemons, C-based RTOS integrations |
+| **Android / Kotlin** | Android apps | Native Android smart home apps, Wear OS companions, Android Auto integrations |
+
+### Scenario examples
+
+**ROS 2 robot + Python**
+A ROS 2 node subscribes to robot sensor topics and uses the Python library to update openHAB items in real time — for example, updating a temperature item when the robot's LIDAR detects environmental changes, or triggering a light scene when the robot enters a room.
+
+**MagicMirror² module + Node.js**
+A custom MagicMirror² module uses the Node.js library to display real-time item states (weather sensor, door contacts, energy meters) on a smart mirror, subscribing to SSE streams for live updates without polling.
+
+**Unity VR experience + C#**
+A Unity-based VR application lets users walk through a digital twin of their home. The C# library connects to openHAB so that toggling a virtual light switch sends a real `sendCommand("LivingRoomLight", "ON")` to the physical device.
+
+**HoloLens AR overlay + C#**
+A Microsoft HoloLens app overlays item states onto physical objects in the room using MRTK. The C# library provides live state updates via SSE so that the AR labels stay current as devices change state.
+
+**Embedded Linux controller + C/C++**
+A Raspberry Pi running a C++ daemon monitors a GPIO sensor and uses the C++ library to update openHAB items directly — no Python interpreter, no JVM, minimal RAM footprint.
+
+**Android smart home app + Kotlin**
+A native Android companion app for an openHAB installation uses the Kotlin library to send commands, subscribe to item state changes via Kotlin Flows, and display live device states with full lifecycle awareness.
+
+**Home automation dashboard + JavaScript**
+A self-hosted single-page web app loaded in the browser uses the JavaScript library directly in the client — no backend needed — to display and control all devices.
+
+---
+
+## Libraries at a Glance
+
+| Library | Language | Package Manager | Latest Version |
+|---|---|---|---|
+| [python-openhab-rest-client](https://github.com/Michdo93/python-openhab-rest-client) | Python 3 | PyPI | ![PyPI](https://img.shields.io/pypi/v/python-openhab-rest-client) |
+| [js-openhab-rest-client](https://github.com/Michdo93/js-openhab-rest-client) | JavaScript (Browser) | CDN / manual | — |
+| [nodejs-openhab-rest-client](https://github.com/Michdo93/nodejs-openhab-rest-client) | Node.js 18+ | npm | — |
+| [java-openhab-rest-client](https://github.com/Michdo93/java-openhab-rest-client) | Java 11+ | JitPack / GitHub Packages | — |
+| [csharp-openhab-rest-client](https://github.com/Michdo93/csharp-openhab-rest-client) | C# (.NET Standard 2.1 / .NET 8) | NuGet | — |
+| [cpp-openhab-rest-client](https://github.com/Michdo93/cpp-openhab-rest-client) | C++17 | CMake / vcpkg | — |
+| [c-openhab-rest-client](https://github.com/Michdo93/c-openhab-rest-client) | C11 | CMake | — |
+| [android-openhab-rest-client](https://github.com/Michdo93/android-openhab-rest-client) | Kotlin / Android API 21+ | JitPack / GitHub Packages / AAR | — |
+
+For the complete list of classes, methods, and their parameters, see the **README of each individual repository** (linked in the sections below).
+
+---
+
+## Testing with openHAB Cloud or a Local Instance
+
+All libraries support two connection modes:
+
+### myopenhab.org (openHAB Cloud)
+
+If you have an account on [myopenhab.org](https://myopenhab.org), you can use it directly:
+
+```
+URL:      https://myopenhab.org
+Username: your@email.com
+Password: your myopenhab.org password
+```
+
+This works for all libraries and all test applications without any additional network configuration.
+
+### Local openHAB Instance
+
+If your openHAB instance runs on your local network (e.g. `http://192.168.1.100:8080`), you can connect to it directly from any library running server-side or natively (Python, Node.js, Java, C#, C++, C, Android).
+
+**Browser-based test applications (JavaScript)** additionally require:
+
+1. **CORS enabled in openHAB** — Add the following to `$OPENHAB_CONF/services/runtime.cfg`:
+   ```
+   org.openhab.cors:enable=true
+   ```
+   Or enable it via **Administration → Settings → API** in the openHAB UI.
+
+2. **Browser CORS policy relaxed** — Browsers block cross-origin requests by default. During development you can either:
+   - Use a browser extension like **CORS Unblock** or **Allow CORS** to temporarily permit cross-origin requests.
+   - Launch Chrome with `--disable-web-security --user-data-dir=/tmp/chrome-dev` (development only, never in production).
+   - Serve the test page from the same origin as openHAB (e.g. place it in openHAB's web folder).
+
+> **Note:** The C, C++, Java, C#, Node.js, Python, and Android libraries do not run in a browser and are therefore **not affected by CORS**. They can connect to a local openHAB instance directly without any additional configuration.
+
+---
+
+## Python
+
+**Library:** [github.com/Michdo93/python-openhab-rest-client](https://github.com/Michdo93/python-openhab-rest-client)
+
+The Python library is the most feature-complete in the family. It offers all 27 API classes in both **synchronous** (`requests`) and **asynchronous** (`aiohttp`, `AsyncOpenHABClient`) variants, plus all five SSE event classes.
+
+### Installation
+
+```bash
+pip install python-openhab-rest-client
+```
+
+### Quick start
+
+```python
+from openhab import OpenHABClient, Items
+
+client   = OpenHABClient("http://127.0.0.1:8080", username="openhab", password="habopen")
+items    = Items(client)
+
+print(items.getItems())
+items.sendCommand("MyLightSwitch", "ON")
+```
+
+### Async quick start
+
+```python
+import asyncio
+from openhab import AsyncOpenHABClient, AsyncItems
+
+async def main():
+    async with AsyncOpenHABClient("http://127.0.0.1:8080", username="openhab", password="habopen") as client:
+        items = AsyncItems(client)
+        print(await items.getItems())
+
+asyncio.run(main())
+```
+
+### Test Application
+
+| | |
+|---|---|
+| **Repository** | [github.com/Michdo93/python-openhab-rest-client-test-app](https://github.com/Michdo93/python-openhab-rest-client-test-app) |
+| **Live Demo** | [michdo93.github.io/python-openhab-rest-client-test-app](https://michdo93.github.io/python-openhab-rest-client-test-app/) |
+
+The test application runs a Python backend on Render.com (Free Tier) and a GitHub Pages frontend. See [Test Applications on Render.com](#test-applications-on-rendercom) for important notes about performance.
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/python-openhab-rest-client/blob/main/README.md) in the library repository for all classes, methods, parameters, and examples.
+
+---
+
+## JavaScript (Browser)
+
+**Library:** [github.com/Michdo93/js-openhab-rest-client](https://github.com/Michdo93/js-openhab-rest-client)
+
+A zero-dependency single-file library (`openhab.js` / `openhab.min.js`) for use directly in the browser. All methods are Promise-based. Includes the `Async` prefixed variants for naming consistency with Python.
+
+### Installation
+
+```html
+<!-- CDN (recommended) -->
+<script src="https://cdn.jsdelivr.net/gh/Michdo93/js-openhab-rest-client@main/openhab.min.js"></script>
+
+<!-- Via GitHack -->
+<script src="https://rawcdn.githack.com/Michdo93/js-openhab-rest-client/main/openhab.min.js"></script>
+```
+
+Or download `openhab.js` from the repository and host it locally:
+
+```html
+<script src="./openhab.js"></script>
+```
+
+### Quick start
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/Michdo93/js-openhab-rest-client@main/openhab.min.js"></script>
+<script>
+  const { OpenHABClient, Items } = openHAB;
+  const client = new OpenHABClient("http://127.0.0.1:8080", "openhab", "habopen");
+  const items  = new Items(client);
+
+  items.getItems().then(result => console.log(result));
+  items.sendCommand("MyLightSwitch", "ON");
+</script>
+```
+
+> **CORS note:** When connecting to a local openHAB instance from the browser, CORS must be enabled in openHAB and permitted in your browser. See [Testing with openHAB Cloud or a Local Instance](#testing-with-openhab-cloud-or-a-local-instance). The test application only connects to [myopenhab.org](https://myopenhab.org) by default for this reason.
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/js-openhab-rest-client/blob/main/README.md) for all import variants (ESM, CommonJS, CDN, local), all classes and methods.
+
+---
+
+## Node.js
+
+**Library:** [github.com/Michdo93/nodejs-openhab-rest-client](https://github.com/Michdo93/nodejs-openhab-rest-client)
+
+The Node.js library is a server-side version with the same API as the browser JS library, published as an npm package with full ESM, CommonJS, and TypeScript support.
+
+### Installation
+
+```bash
+npm install nodejs-openhab-rest-client
+```
+
+### Quick start (ESM)
+
+```javascript
+import { OpenHABClient, Items } from "nodejs-openhab-rest-client";
+
+const client = new OpenHABClient("http://127.0.0.1:8080", "openhab", "habopen");
+await client.login();
+
+const items = new Items(client);
+const all   = await items.getItems();
+console.log(all);
+```
+
+### Quick start (CommonJS)
+
+```javascript
+const { OpenHABClient, Items } = require("nodejs-openhab-rest-client");
+```
+
+### Test Application
+
+| | |
+|---|---|
+| **Repository** | [github.com/Michdo93/nodejs-openhab-rest-client-test-app](https://github.com/Michdo93/nodejs-openhab-rest-client-test-app) |
+| **Live Demo** | [michdo93.github.io/nodejs-openhab-rest-client-test-app](https://michdo93.github.io/nodejs-openhab-rest-client-test-app/) |
+
+The Node.js test application runs entirely client-side on GitHub Pages — no backend required. Because it runs in the browser, the same CORS note as for the JS library applies.
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/nodejs-openhab-rest-client/blob/main/README.md) for all import variants, TypeScript usage, SSE streaming, and all classes and methods.
+
+---
+
+## Java
+
+**Library:** [github.com/Michdo93/java-openhab-rest-client](https://github.com/Michdo93/java-openhab-rest-client)
+
+A pure Java 11 library with zero external dependencies — built on `java.net.HttpURLConnection`. SSE is exposed via the `SSEConnection` class, which implements `Iterable<String>` and works with try-with-resources.
+
+### Installation
+
+**JitPack (Maven):**
+
+```xml
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.Michdo93</groupId>
+  <artifactId>java-openhab-rest-client</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+
+**JitPack (Gradle):**
+
+```kotlin
+repositories { maven("https://jitpack.io") }
+
+dependencies {
+    implementation("com.github.Michdo93:java-openhab-rest-client:1.0.1")
+}
+```
+
+**GitHub Packages** and **manual JAR** options are also available — see the [README](https://github.com/Michdo93/java-openhab-rest-client/blob/main/README.md) for details.
+
+### Quick start
+
+```java
+import io.github.michdo93.openhab.*;
+
+OpenHABClient client = new OpenHABClient("http://127.0.0.1:8080", "openhab", "habopen");
+Items items = new Items(client);
+
+System.out.println(items.getItems());
+items.sendCommand("MyLightSwitch", "ON");
+```
+
+### Test Application & Backend
+
+| | |
+|---|---|
+| **Backend Repository** | [github.com/Michdo93/java-openhab-rest-client-backend](https://github.com/Michdo93/java-openhab-rest-client-backend) |
+| **Backend (Live)** | `https://java-openhab-rest-client-backend.onrender.com` |
+| **Frontend Repository** | [github.com/Michdo93/java-openhab-rest-client-test-app](https://github.com/Michdo93/java-openhab-rest-client-test-app) |
+| **Frontend (Live Demo)** | [michdo93.github.io/java-openhab-rest-client-test-app](https://michdo93.github.io/java-openhab-rest-client-test-app/) |
+
+The backend is a Spring Boot application running on Render.com (Free Tier). See [Test Applications on Render.com](#test-applications-on-rendercom) for important notes.
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/java-openhab-rest-client/blob/main/README.md) for all installation options, all classes, all method overloads, and SSE examples.
+
+---
+
+## C\#
+
+**Library:** [github.com/Michdo93/csharp-openhab-rest-client](https://github.com/Michdo93/csharp-openhab-rest-client)
+
+A .NET library targeting `netstandard2.1` and `net8.0`, with zero external dependencies. Every method exists in both a synchronous and an `Async` variant. SSE is exposed as `IEnumerable<string>` (sync) and `IAsyncEnumerable<string>` (async, C# 8+).
+
+### Installation
+
+**.NET CLI:**
+
+```bash
+dotnet add package CSharpOpenHABRestClient
+```
+
+**Package Manager Console (Visual Studio):**
+
+```powershell
+Install-Package CSharpOpenHABRestClient
+```
+
+**`.csproj` PackageReference:**
+
+```xml
+<PackageReference Include="CSharpOpenHABRestClient" Version="1.0.0" />
+```
+
+Manual DLL, source project reference, and ASP.NET Core DI integration options are also available — see the [README](https://github.com/Michdo93/csharp-openhab-rest-client/blob/main/README.md).
+
+### Quick start
+
+```csharp
+using OpenHABRestClient;
+
+using var client = new OpenHABClient("http://127.0.0.1:8080", "openhab", "habopen");
+var items = new Items(client);
+
+Console.WriteLine(items.GetItems());
+await items.SendCommandAsync("MyLightSwitch", "ON");
+```
+
+### Test Application & Backend
+
+| | |
+|---|---|
+| **Backend Repository** | [github.com/Michdo93/csharp-openhab-rest-client-backend](https://github.com/Michdo93/csharp-openhab-rest-client-backend) |
+| **Backend (Live)** | `https://csharp-openhab-rest-client-backend.onrender.com` |
+| **Frontend (Live Demo)** | Served from the backend repository's GitHub Pages |
+
+The backend is an ASP.NET Core application running on Render.com (Free Tier). See [Test Applications on Render.com](#test-applications-on-rendercom).
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/csharp-openhab-rest-client/blob/main/README.md) for all NuGet installation variants, ASP.NET Core DI setup, sync/async method tables, SSE with `CancellationToken`, and all classes.
+
+---
+
+## C++
+
+**Library:** [github.com/Michdo93/cpp-openhab-rest-client](https://github.com/Michdo93/cpp-openhab-rest-client)
+
+A C++17 library built on libcurl and [nlohmann/json](https://github.com/nlohmann/json) (auto-downloaded by CMake). Returns `nlohmann::json` objects directly — no manual JSON parsing needed. SSE uses a blocking `forEach(callback)` pattern.
+
+### Building
+
+```bash
+# Ubuntu / Debian
+sudo apt-get install -y libcurl4-openssl-dev cmake build-essential
+git clone https://github.com/Michdo93/cpp-openhab-rest-client.git
+cd cpp-openhab-rest-client && mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . -- -j$(nproc)
+```
+
+Windows (MSVC + vcpkg), MinGW, macOS, and cross-compilation for ARM are also documented in the [README](https://github.com/Michdo93/cpp-openhab-rest-client/blob/main/README.md).
+
+### Adding to your CMake project
+
+```cmake
+# Option A: FetchContent (auto-download)
+include(FetchContent)
+FetchContent_Declare(openhab_rest_client
+    GIT_REPOSITORY https://github.com/Michdo93/cpp-openhab-rest-client.git
+    GIT_TAG main)
+FetchContent_MakeAvailable(openhab_rest_client)
+target_link_libraries(myapp PRIVATE openhab_rest_client_static ${CURL_LIBRARIES} nlohmann_json::nlohmann_json)
+
+# Option B: add_subdirectory (local copy)
+add_subdirectory(libs/openhab)
+target_link_libraries(myapp PRIVATE openhab_rest_client_static ${CURL_LIBRARIES} nlohmann_json::nlohmann_json)
+```
+
+### Quick start
+
+```cpp
+#include <openhab/openhab.h>
+#include <iostream>
+using namespace openhab;
+
+int main() {
+    OpenHABClient client("http://127.0.0.1:8080", "openhab", "habopen");
+    Items items(client);
+
+    std::cout << items.getItems().dump(2) << std::endl;
+    items.sendCommand("MyLightSwitch", "ON");
+}
+```
+
+### Test Application & Backend
+
+| | |
+|---|---|
+| **Backend Repository** | [github.com/Michdo93/cpp-openhab-rest-client-backend](https://github.com/Michdo93/cpp-openhab-rest-client-backend) |
+| **Backend (Live)** | `https://cpp-openhab-rest-client-backend.onrender.com` |
+| **Frontend Repository** | [github.com/Michdo93/cpp-openhab-rest-client-test-app](https://github.com/Michdo93/cpp-openhab-rest-client-test-app) |
+| **Frontend (Live Demo)** | [michdo93.github.io/cpp-openhab-rest-client-test-app](https://michdo93.github.io/cpp-openhab-rest-client-test-app/) |
+
+The backend is a C++ httplib server running on Render.com (Free Tier). See [Test Applications on Render.com](#test-applications-on-rendercom).
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/cpp-openhab-rest-client/blob/main/README.md) for all platform-specific build instructions, CMake integration options, and all classes.
+
+---
+
+## C
+
+**Library:** [github.com/Michdo93/c-openhab-rest-client](https://github.com/Michdo93/c-openhab-rest-client)
+
+A pure C11 library built on libcurl. No external JSON library required — all responses are raw JSON `char*` strings that the caller parses with any C JSON library (cJSON, jansson, jsmn, …). The only runtime dependency is libcurl. SSE uses a function pointer callback (`openhab_sse_callback_t`). **The caller must `free()` every returned `char*`.**
+
+Functions follow the naming convention `openhab_<class>_<methodName>(client, ...)`.
+
+### Building
+
+```bash
+# Ubuntu / Debian
+sudo apt-get install -y libcurl4-openssl-dev cmake build-essential
+git clone https://github.com/Michdo93/c-openhab-rest-client.git
+cd c-openhab-rest-client && mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . -- -j$(nproc)
+```
+
+Windows (MSVC + vcpkg, MinGW), macOS, Raspberry Pi, and AArch64 cross-compilation with the included toolchain file are documented in the [README](https://github.com/Michdo93/c-openhab-rest-client/blob/main/README.md).
+
+### Adding to your CMake project
+
+```cmake
+# Option A: FetchContent
+FetchContent_Declare(c_openhab_rest_client
+    GIT_REPOSITORY https://github.com/Michdo93/c-openhab-rest-client.git
+    GIT_TAG main)
+FetchContent_MakeAvailable(c_openhab_rest_client)
+target_link_libraries(myapp PRIVATE openhab_rest_client_static ${CURL_LIBRARIES})
+
+# Option B: add_subdirectory
+add_subdirectory(libs/openhab)
+target_link_libraries(myapp PRIVATE openhab_rest_client_static ${CURL_LIBRARIES})
+```
+
+### Quick start
+
+```c
+#include <openhab/openhab.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+    openhab_client_t* c = openhab_client_create(
+        "http://127.0.0.1:8080", "openhab", "habopen", NULL);
+
+    char* items = openhab_items_getItems(c, NULL, NULL, NULL, 0, NULL, 0, NULL);
+    if (items) { printf("%s\n", items); free(items); }
+
+    char* r = openhab_items_sendCommand(c, "MyLightSwitch", "ON");
+    if (r) free(r);
+
+    openhab_client_destroy(c);
+    return 0;
+}
+```
+
+### Test Application & Backend
+
+| | |
+|---|---|
+| **Backend Repository** | [github.com/Michdo93/c-openhab-rest-client-backend](https://github.com/Michdo93/c-openhab-rest-client-backend) |
+| **Backend (Live)** | `https://c-openhab-rest-client-backend.onrender.com` |
+| **Frontend Repository** | [github.com/Michdo93/c-openhab-rest-client-test-app](https://github.com/Michdo93/c-openhab-rest-client-test-app) |
+| **Frontend (Live Demo)** | [michdo93.github.io/c-openhab-rest-client-test-app](https://michdo93.github.io/c-openhab-rest-client-test-app/) |
+
+The backend is a C++ httplib server with a `extern "C"` interface wrapping the C library, running on Render.com (Free Tier). See [Test Applications on Render.com](#test-applications-on-rendercom).
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/c-openhab-rest-client/blob/main/README.md) for all platform build instructions, `OPENHAB_STATIC` macro, memory management rules, SSE callback pattern, and all functions.
+
+---
+
+## Android / Kotlin
+
+**Library:** [github.com/Michdo93/android-openhab-rest-client](https://github.com/Michdo93/android-openhab-rest-client)
+
+A Kotlin-exclusive Android library (API 21+) built on OkHttp and Kotlin Coroutines. All REST methods are `suspend` functions. SSE streams are exposed as Kotlin `Flow<String>` via `SseSession.collect()`. The `OpenHAB` facade class provides lazy access to all 27 API classes and 6 event classes through a single entry point.
+
+### Installation
+
+**JitPack** (simplest, no login required):
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
+```
+
+```kotlin
+// app/build.gradle.kts
+dependencies {
+    implementation("com.github.Michdo93:android-openhab-rest-client:1.0.5")
+}
+```
+
+**GitHub Packages** (requires a GitHub PAT with `read:packages`) and **manual AAR** installation are also supported — see the [README](https://github.com/Michdo93/android-openhab-rest-client/blob/main/README.md) for full instructions including credential management and transitive dependency listing.
+
+### AndroidManifest.xml
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
+### Quick start
+
+```kotlin
+import io.github.michdo93.openhab.OpenHAB
+import io.github.michdo93.openhab.client.OpenHABException
+
+val openHAB = OpenHAB(
+    url      = "http://192.168.1.100:8080",
+    username = "openhab",
+    password = "habopen",
+    debug    = BuildConfig.DEBUG,
+)
+
+// In a coroutine scope (Activity or ViewModel):
+lifecycleScope.launch {
+    try {
+        openHAB.items.sendCommand("LivingRoomLight", "ON")
+        val state = openHAB.items.getItemState("LivingRoomLight")
+        Log.d("openHAB", "State: $state")
+    } catch (e: OpenHABException) {
+        Log.e("openHAB", "HTTP ${e.statusCode}: ${e.message}")
+    }
+}
+
+// SSE — live state changes via Kotlin Flow:
+lifecycleScope.launch {
+    openHAB.itemEvents
+        .itemStateChangedEvent("LivingRoomLight")
+        .collect()
+        .catch { e -> Log.e("openHAB", "SSE error: ${e.message}") }
+        .collect { data -> Log.d("openHAB", "Event: $data") }
+}
+```
+
+> **Note:** There is no web-based test application for the Android library — the `app-example` module in the repository is the equivalent, demonstrating all features in a native Android Activity. The Android library is exclusively for Android devices and cannot be tested via a browser or backend.
+
+### Full documentation
+
+See the [README](https://github.com/Michdo93/android-openhab-rest-client/blob/main/README.md) for all three installation options, Network Security Configuration, Hilt/Koin DI examples, and all classes and methods.
+
+---
+
+## Test Applications on Render.com
+
+The test applications for Python, Java, C#, C++, and C consist of two parts:
+
+- A **backend** deployed on [Render.com](https://render.com/) (Free Tier) that acts as a stateless proxy, accepting credentials from the frontend and forwarding requests to openHAB.
+- A **frontend** hosted on [GitHub Pages](https://pages.github.com/) that provides an interactive HTML test suite.
+
+### Why a separate backend?
+
+The Python, Java, C#, C++, and C libraries are designed for server-side or native use, **not** for direct execution in the browser. A backend proxy is therefore required to make them accessible from a web-based test suite. In contrast, the JavaScript and Node.js libraries can run in the browser directly (or from a Node.js server), so their test applications have no separate backend.
+
+### ⚠ Performance limitations of the Free Tier
+
+Render.com's Free Tier spins down containers after a period of inactivity. Each test application includes a **wake-up mechanism** that sends a ping to the backend when the page loads and waits for it to become available. This typically takes **30–60 seconds** on the first request.
+
+Beyond the startup delay, the Free Tier has limited CPU and memory. Requests that return large responses — such as **querying all items at once** — may exceed the available resources and cause the request to time out or fail. If this happens:
+
+- Try requesting individual items by name instead of all items at once.
+- Reduce the number of simultaneous requests.
+- Wait a moment and retry — the container may have been mid-startup.
+
+This is a limitation of the hosting environment, **not** of the libraries themselves. Running the same libraries against a local openHAB instance or a production server will not exhibit these constraints.
+
+### Wake-up tip
+
+All test frontends display a status indicator while waiting for the backend to wake up. If the backend does not respond within the timeout, a manual retry button is provided. Allow **up to 60 seconds** on first load before concluding that something is wrong.
+
+### Summary of all test infrastructure
+
+| Language | Backend Repo | Backend Live URL | Frontend Repo | Frontend Live URL |
+|---|---|---|---|---|
+| Python | [python-openhab-rest-client-test-app](https://github.com/Michdo93/python-openhab-rest-client-test-app) | _(included in test-app repo)_ | same repo | [michdo93.github.io/python-openhab-rest-client-test-app](https://michdo93.github.io/python-openhab-rest-client-test-app/) |
+| JavaScript | — | — | [js-openhab-rest-client](https://github.com/Michdo93/js-openhab-rest-client) | [michdo93.github.io/js-openhab-rest-client](https://michdo93.github.io/js-openhab-rest-client/) |
+| Node.js | — | — | [nodejs-openhab-rest-client-test-app](https://github.com/Michdo93/nodejs-openhab-rest-client-test-app) | [michdo93.github.io/nodejs-openhab-rest-client-test-app](https://michdo93.github.io/nodejs-openhab-rest-client-test-app/) |
+| Java | [java-openhab-rest-client-backend](https://github.com/Michdo93/java-openhab-rest-client-backend) | `java-openhab-rest-client-backend.onrender.com` | [java-openhab-rest-client-test-app](https://github.com/Michdo93/java-openhab-rest-client-test-app) | [michdo93.github.io/java-openhab-rest-client-test-app](https://michdo93.github.io/java-openhab-rest-client-test-app/) |
+| C# | [csharp-openhab-rest-client-backend](https://github.com/Michdo93/csharp-openhab-rest-client-backend) | `csharp-openhab-rest-client-backend.onrender.com` | same repo | [michdo93.github.io/csharp-openhab-rest-client-backend](https://michdo93.github.io/csharp-openhab-rest-client-backend/) |
+| C++ | [cpp-openhab-rest-client-backend](https://github.com/Michdo93/cpp-openhab-rest-client-backend) | `cpp-openhab-rest-client-backend.onrender.com` | [cpp-openhab-rest-client-test-app](https://github.com/Michdo93/cpp-openhab-rest-client-test-app) | [michdo93.github.io/cpp-openhab-rest-client-test-app](https://michdo93.github.io/cpp-openhab-rest-client-test-app/) |
+| C | [c-openhab-rest-client-backend](https://github.com/Michdo93/c-openhab-rest-client-backend) | `c-openhab-rest-client-backend.onrender.com` | [c-openhab-rest-client-test-app](https://github.com/Michdo93/c-openhab-rest-client-test-app) | [michdo93.github.io/c-openhab-rest-client-test-app](https://michdo93.github.io/c-openhab-rest-client-test-app/) |
+| Android | — | — | [android-openhab-rest-client](https://github.com/Michdo93/android-openhab-rest-client) (app-example) | — (native Android app) |
+
+---
+
+## License
+
+All libraries and test applications in this family are licensed under the **MIT License**. See the `LICENSE` file in each repository for details.
